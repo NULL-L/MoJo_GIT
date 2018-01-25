@@ -27,18 +27,30 @@ Project File Date:  01/15/2018
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 4 (build 422)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'CAN'
-compiling Kalman.c...
+compiling main.c...
 ..\HARDWARE\SERVO.h(12): warning:  #1295-D: Deprecated declaration clear_PID_buf - give arg types
   void clear_PID_buf();
 ..\HARDWARE\SERVO.h(13): warning:  #1295-D: Deprecated declaration speed_position_measure - give arg types
   void speed_position_measure();
-..\HARDWARE\Kalman.c(286): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  speed_actual=xk.pData[1]*1000.0;
-..\HARDWARE\Kalman.c: 3 warnings, 0 errors
+main.c(107): warning:  #177-D: variable "i"  was declared but never referenced
+  	u8 i=0,t=0;
+main.c(107): warning:  #177-D: variable "t"  was declared but never referenced
+  	u8 i=0,t=0;
+main.c(108): warning:  #177-D: variable "cnt"  was declared but never referenced
+  	u8 cnt=0;
+main.c(109): warning:  #177-D: variable "canbuf"  was declared but never referenced
+  	u8 canbuf[8];
+main.c(110): warning:  #177-D: variable "res"  was declared but never referenced
+  	u8 res;	
+main.c(111): warning:  #177-D: variable "ctr_cnt"  was declared but never referenced
+  	u8 ctr_cnt=0;
+main.c(112): warning:  #177-D: variable "i_enc_cnt_1"  was declared but never referenced
+  	int i_enc_cnt_1;
+main.c: 9 warnings, 0 errors
 linking...
-Program Size: Code=27892 RO-data=784 RW-data=984 ZI-data=2520  
+Program Size: Code=27992 RO-data=784 RW-data=984 ZI-data=2520  
 FromELF: creating hex file...
-"..\OBJ\CAN.axf" - 0 Error(s), 3 Warning(s).
+"..\OBJ\CAN.axf" - 0 Error(s), 9 Warning(s).
 
 <h2>Software Packages used:</h2>
 

@@ -165,7 +165,24 @@ while (mode==0)//Í£Ö¹×´Ì¬£¬
 
 if (mode==1)//Î»ÖÃ¿ØÖÆ
 {
-	
+	while(num_pos_PID_count<100)
+	{
+	//Current_DAC_Out(_current);	
+	Current_DAC_Out(PID_control_current(PID_control_speed(PID_control_position(_position))));
+	speed_position_measure();
+	Data_send();
+delay_us(1000.0*time_position_PID_delta_ms);
+		//delay_ms(100.0);
+	num_pos_PID_count++;
+
+//		Current_DAC_Out(-0.3);
+//	speed_position_measure();
+//	Data_send();
+//	delay_ms(1000.0);		
+	}
+	clear_PID_buf();
+	num_pos_PID_count=0;
+	mode=0;
 }
 if (mode==2)//speed control
 {
@@ -186,7 +203,7 @@ delay_us(1000.0*time_speed_PID_delta_ms);
 //	delay_ms(1000.0);		
 	}
 	clear_PID_buf();
-	num_cur_PID_count=0;
+	num_spd_PID_count=0;
 	mode=0;
 }
 	
