@@ -21,7 +21,7 @@ Target DLL:      Segger\JL2CM3.dll V2.99.23.0
 Dialog DLL:      TCM.DLL V1.27.0.0
  
 <h2>Project:</h2>
-E:\_study\ProgramData\KEIL\MDK\407\MoJo_10\USER\CAN.uvprojx
+E:\_study\ProgramData\KEIL\MDK\407\MoJo_09\USER\CAN.uvprojx
 Project File Date:  01/15/2018
 
 <h2>Output:</h2>
@@ -29,121 +29,38 @@ Project File Date:  01/15/2018
 Rebuild target 'CAN'
 compiling system_stm32f4xx.c...
 compiling stm32f4xx_it.c...
-compiling NVIC.C...
-..\HARDWARE\SERVO.h(12): warning:  #1295-D: Deprecated declaration clear_PID_buf - give arg types
-  void clear_PID_buf();
-..\HARDWARE\SERVO.h(13): warning:  #1295-D: Deprecated declaration speed_position_measure - give arg types
-  void speed_position_measure();
-..\HARDWARE\NVIC.C: 2 warnings, 0 errors
 compiling main.c...
 ..\HARDWARE\SERVO.h(12): warning:  #1295-D: Deprecated declaration clear_PID_buf - give arg types
   void clear_PID_buf();
 ..\HARDWARE\SERVO.h(13): warning:  #1295-D: Deprecated declaration speed_position_measure - give arg types
   void speed_position_measure();
-main.c(192): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  delay_us(1000.0*
-ime_position_PID_delta_ms);
-main.c(215): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  delay_us(1000.0*
-ime_speed_PID_delta_ms);
-main.c(236): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  delay_us(1000.0*
-ime_speed_PID_delta_ms);
-main.c(248): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  delay_us(1000.0*
-ime_speed_PID_delta_ms);
-main.c(258): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  delay_us(1000.0*
-ime_speed_PID_delta_ms);
-main.c(280): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  delay_us(1000.0*
-ime_current_PID_delta_ms);
-main.c(119): warning:  #177-D: variable "i"  was declared but never referenced
+main.c(107): warning:  #177-D: variable "i"  was declared but never referenced
   	u8 i=0,t=0;
-main.c(119): warning:  #177-D: variable "t"  was declared but never referenced
+main.c(107): warning:  #177-D: variable "t"  was declared but never referenced
   	u8 i=0,t=0;
-main.c(120): warning:  #177-D: variable "cnt"  was declared but never referenced
+main.c(108): warning:  #177-D: variable "cnt"  was declared but never referenced
   	u8 cnt=0;
-main.c(121): warning:  #177-D: variable "canbuf"  was declared but never referenced
+main.c(109): warning:  #177-D: variable "canbuf"  was declared but never referenced
   	u8 canbuf[8];
-main.c(122): warning:  #177-D: variable "res"  was declared but never referenced
+main.c(110): warning:  #177-D: variable "res"  was declared but never referenced
   	u8 res;	
-main.c(123): warning:  #177-D: variable "ctr_cnt"  was declared but never referenced
+main.c(111): warning:  #177-D: variable "ctr_cnt"  was declared but never referenced
   	u8 ctr_cnt=0;
-main.c(124): warning:  #177-D: variable "i_enc_cnt_1"  was declared but never referenced
+main.c(112): warning:  #177-D: variable "i_enc_cnt_1"  was declared but never referenced
   	int i_enc_cnt_1;
-main.c: 15 warnings, 0 errors
+main.c: 9 warnings, 0 errors
 compiling led.c...
 ..\HARDWARE\SERVO.h(12): warning:  #1295-D: Deprecated declaration clear_PID_buf - give arg types
   void clear_PID_buf();
 ..\HARDWARE\SERVO.h(13): warning:  #1295-D: Deprecated declaration speed_position_measure - give arg types
   void speed_position_measure();
 ..\HARDWARE\LED\led.c: 2 warnings, 0 errors
-compiling ENC.c...
+compiling NVIC.C...
 ..\HARDWARE\SERVO.h(12): warning:  #1295-D: Deprecated declaration clear_PID_buf - give arg types
   void clear_PID_buf();
 ..\HARDWARE\SERVO.h(13): warning:  #1295-D: Deprecated declaration speed_position_measure - give arg types
   void speed_position_measure();
-..\HARDWARE\ENC.c(53): warning:  #1-D: last line of file ends without a newline
-  }
-..\HARDWARE\ENC.c: 3 warnings, 0 errors
-compiling SERVO.c...
-..\HARDWARE\servo.h(12): warning:  #1295-D: Deprecated declaration clear_PID_buf - give arg types
-  void clear_PID_buf();
-..\HARDWARE\servo.h(13): warning:  #1295-D: Deprecated declaration speed_position_measure - give arg types
-  void speed_position_measure();
-..\HARDWARE\SERVO.c(146): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  		current_output_DAC=num*4096/
-ax_current;
-..\HARDWARE\SERVO.c(154): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  		current_output_DAC=-num*4096/
-ax_current;
-..\HARDWARE\SERVO.c(246): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-   	position_raw=original_absolute_position+
-I*(float)(pos_count_last[0])/
-requency_ratio/
-ine_num/reduc_ratio;
-..\HARDWARE\SERVO.c(249): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  	current_raw=(ADCConvertedValue-2048)*2.0f*
-ax_current/4096.0f;	
-..\HARDWARE\SERVO.c(256): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  	speed_raw=(4*pos_before[0]-4*pos_before[1]+3*pos_before[2]-3*pos_before[3]+1*pos_before[4]-pos_before[5]+1*pos_before[6]-pos_before[7]/**/)/9.0/4.0/(sample_delta_ms/1000.0);
-..\HARDWARE\SERVO.c(276): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-   	if (current_demand>=
-ax_current/
-urrent_protect_ratio)
-..\HARDWARE\SERVO.c(277): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-   		{current_demand=
-ax_current/
-urrent_protect_ratio;}
-..\HARDWARE\SERVO.c(312): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  	if (current_output[1]>=
-ax_current/
-urrent_protect_ratio)//电流保护
-..\HARDWARE\SERVO.c(313): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  		{current_output[1]=
-ax_current/
-urrent_protect_ratio;}
-..\HARDWARE\SERVO.c(336): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  	if (speed_demand>=
-ax_speed)
-..\HARDWARE\SERVO.c(390): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  	if (speed_output[1]>=
-ax_current/
-urrent_protect_ratio)
-..\HARDWARE\SERVO.c(391): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  		{speed_output[1]=
-ax_current/
-urrent_protect_ratio;}
-..\HARDWARE\SERVO.c(466): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  	if (position_output[1]>=
-ax_speed/
-peed_protect_ratio)
-..\HARDWARE\SERVO.c(467): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  		{position_output[1]=
-ax_speed/
-peed_protect_ratio;}
-..\HARDWARE\SERVO.c: 16 warnings, 0 errors
+..\HARDWARE\NVIC.C: 2 warnings, 0 errors
 compiling can.c...
 ..\HARDWARE\SERVO.h(12): warning:  #1295-D: Deprecated declaration clear_PID_buf - give arg types
   void clear_PID_buf();
@@ -151,10 +68,10 @@ compiling can.c...
   void speed_position_measure();
 ..\HARDWARE\CAN\can.c(297): warning:  #177-D: variable "data"  was declared but never referenced
   		u16 data=((u16)RxMessage.Data[4]<<8)|((u16)RxMessage.Data[5]<<0);
-..\HARDWARE\CAN\can.c(353): warning:  #1035-D: single-precision operand implicitly converted to double-precision
-  			_position = (float)int_position *(float)flag*
+..\HARDWARE\CAN\can.c(363): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  			_position = (float)int_position *
 I/180000.0;
-..\HARDWARE\CAN\can.c(373): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\HARDWARE\CAN\can.c(364): warning:  #1035-D: single-precision operand implicitly converted to double-precision
   			_speed = (float)int_speed*(float)flag *
 I/36000.0;
 ..\HARDWARE\CAN\can.c(327): warning:  #177-D: variable "int_current"  was declared but never referenced
@@ -165,73 +82,138 @@ I/36000.0;
   			float temp_speed;
 ..\HARDWARE\CAN\can.c(336): warning:  #177-D: variable "temp_current"  was declared but never referenced
   			float temp_current;
-..\HARDWARE\CAN\can.c(467): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\HARDWARE\CAN\can.c(458): warning:  #1035-D: single-precision operand implicitly converted to double-precision
   			_speed = (float)int_speed*(float)flag *
 I/36000.0;
-..\HARDWARE\CAN\can.c(447): warning:  #177-D: variable "temp_speed"  was declared but never referenced
+..\HARDWARE\CAN\can.c(438): warning:  #177-D: variable "temp_speed"  was declared but never referenced
   			float temp_speed;
-..\HARDWARE\CAN\can.c(597): warning:  #550-D: variable "transmit_mailbox"  was set but never used
+..\HARDWARE\CAN\can.c(588): warning:  #550-D: variable "transmit_mailbox"  was set but never used
   	uint8_t transmit_mailbox = 0;
-..\HARDWARE\CAN\can.c(662): warning:  #550-D: variable "transmit_mailbox"  was set but never used
+..\HARDWARE\CAN\can.c(653): warning:  #550-D: variable "transmit_mailbox"  was set but never used
   	uint8_t transmit_mailbox = 0;
 ..\HARDWARE\CAN\can.c(845): warning:  #223-D: function "abs" declared implicitly
-  	position_send[0] = (u8)((0x00ff0000 & (u32)abs((int)((float)position_actual*(float)180000.0/(float)PI))) >>16);
-..\HARDWARE\CAN\can.c(859): warning:  #1035-D: single-precision operand implicitly converted to double-precision
   	speed_send[0] = (u8)((0xff00 & (u16)(abs((int)((float)speed_actual*36000.0/PI)))) >>8);
-..\HARDWARE\CAN\can.c(860): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\HARDWARE\CAN\can.c(845): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	speed_send[0] = (u8)((0xff00 & (u16)(abs((int)((float)speed_actual*36000.0/PI)))) >>8);
+..\HARDWARE\CAN\can.c(846): warning:  #1035-D: single-precision operand implicitly converted to double-precision
   	speed_send[1] = (u8)((0x00ff & (u16)(abs((int)((float)speed_actual*36000.0/PI)))));
 ..\HARDWARE\CAN\can.c: 16 warnings, 0 errors
-compiling delay.c...
-compiling sys.c...
+compiling SERVO.c...
+..\HARDWARE\servo.h(12): warning:  #1295-D: Deprecated declaration clear_PID_buf - give arg types
+  void clear_PID_buf();
+..\HARDWARE\servo.h(13): warning:  #1295-D: Deprecated declaration speed_position_measure - give arg types
+  void speed_position_measure();
+..\HARDWARE\SERVO.c(143): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  		current_output_DAC=num*4096/
+ax_current;
+..\HARDWARE\SERVO.c(151): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  		current_output_DAC=-num*4096/
+ax_current;
+..\HARDWARE\SERVO.c(242): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+   	position_raw=original_absolute_position+
+I*(float)(pos_count_last[0])/
+requency_ratio/
+ine_num/reduc_ratio;
+..\HARDWARE\SERVO.c(248): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	speed_raw=(4*pos_before[0]-4*pos_before[1]+3*pos_before[2]-3*pos_before[3]+1*pos_before[4]-pos_before[5]+1*pos_before[6]-pos_before[7]/**/)/9.0/4.0/(sample_delta_ms/1000.0);
+..\HARDWARE\SERVO.c(256): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	current_measure=(ADCConvertedValue-2048)*2.0f*
+ax_current/4096.0f;	
+..\HARDWARE\SERVO.c(270): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+   	if (current_demand>=
+ax_current/
+urrent_protect_ratio)
+..\HARDWARE\SERVO.c(271): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+   		{current_demand=
+ax_current/
+urrent_protect_ratio;}
+..\HARDWARE\SERVO.c(306): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	if (current_output[1]>=
+ax_current/
+urrent_protect_ratio)//电流保护
+..\HARDWARE\SERVO.c(307): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  		{current_output[1]=
+ax_current/
+urrent_protect_ratio;}
+..\HARDWARE\SERVO.c(330): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	if (speed_demand>=
+ax_speed)
+..\HARDWARE\SERVO.c(373): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	if (speed_output[1]>=
+ax_current/
+urrent_protect_ratio)
+..\HARDWARE\SERVO.c(374): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  		{speed_output[1]=
+ax_current/
+urrent_protect_ratio;}
+..\HARDWARE\SERVO.c(448): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  	if (position_output[1]>=
+ax_speed/
+peed_protect_ratio)
+..\HARDWARE\SERVO.c(449): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+  		{position_output[1]=
+ax_speed/
+peed_protect_ratio;}
+..\HARDWARE\SERVO.c: 16 warnings, 0 errors
+compiling ENC.c...
+..\HARDWARE\SERVO.h(12): warning:  #1295-D: Deprecated declaration clear_PID_buf - give arg types
+  void clear_PID_buf();
+..\HARDWARE\SERVO.h(13): warning:  #1295-D: Deprecated declaration speed_position_measure - give arg types
+  void speed_position_measure();
+..\HARDWARE\ENC.c(53): warning:  #1-D: last line of file ends without a newline
+  }
+..\HARDWARE\ENC.c: 3 warnings, 0 errors
 compiling Kalman.c...
 ..\HARDWARE\SERVO.h(12): warning:  #1295-D: Deprecated declaration clear_PID_buf - give arg types
   void clear_PID_buf();
 ..\HARDWARE\SERVO.h(13): warning:  #1295-D: Deprecated declaration speed_position_measure - give arg types
   void speed_position_measure();
-..\HARDWARE\Kalman.c(290): warning:  #1035-D: single-precision operand implicitly converted to double-precision
+..\HARDWARE\Kalman.c(259): warning:  #1035-D: single-precision operand implicitly converted to double-precision
   speed_actual=xk.pData[1]*1000.0;
 ..\HARDWARE\Kalman.c: 3 warnings, 0 errors
-assembling startup_stm32f40_41xxx.s...
 compiling usart.c...
-compiling stm32f4xx_fsmc.c...
-compiling stm32f4xx_gpio.c...
+compiling sys.c...
+compiling delay.c...
+assembling startup_stm32f40_41xxx.s...
 compiling misc.c...
+compiling stm32f4xx_gpio.c...
+compiling stm32f4xx_fsmc.c...
 compiling stm32f4xx_rcc.c...
-compiling stm32f4xx_usart.c...
 compiling stm32f4xx_syscfg.c...
-compiling stm32f4xx_can.c...
+compiling stm32f4xx_usart.c...
 compiling stm32f4xx_adc.c...
-compiling stm32f4xx_cryp.c...
+compiling stm32f4xx_can.c...
 compiling stm32f4xx_crc.c...
-compiling stm32f4xx_cryp_des.c...
 compiling stm32f4xx_cryp_aes.c...
+compiling stm32f4xx_cryp_des.c...
+compiling stm32f4xx_cryp.c...
 compiling stm32f4xx_cryp_tdes.c...
+compiling stm32f4xx_dbgmcu.c...
 compiling stm32f4xx_dac.c...
 compiling stm32f4xx_dcmi.c...
-compiling stm32f4xx_dbgmcu.c...
 compiling stm32f4xx_dma.c...
 compiling stm32f4xx_dma2d.c...
-compiling stm32f4xx_exti.c...
-compiling stm32f4xx_flash.c...
 compiling stm32f4xx_flash_ramfunc.c...
+compiling stm32f4xx_flash.c...
+compiling stm32f4xx_exti.c...
+compiling stm32f4xx_hash_sha1.c...
 compiling stm32f4xx_hash.c...
 compiling stm32f4xx_hash_md5.c...
-compiling stm32f4xx_hash_sha1.c...
 compiling stm32f4xx_i2c.c...
-compiling stm32f4xx_iwdg.c...
 compiling stm32f4xx_ltdc.c...
+compiling stm32f4xx_iwdg.c...
 compiling stm32f4xx_pwr.c...
 compiling stm32f4xx_rng.c...
-compiling stm32f4xx_sai.c...
 compiling stm32f4xx_rtc.c...
+compiling stm32f4xx_sai.c...
+compiling stm32f4xx_spi.c...
 compiling stm32f4xx_sdio.c...
 compiling stm32f4xx_wwdg.c...
 compiling stm32f4xx_tim.c...
-compiling stm32f4xx_spi.c...
 linking...
-Program Size: Code=28600 RO-data=784 RW-data=984 ZI-data=2520  
+Program Size: Code=27748 RO-data=784 RW-data=952 ZI-data=2520  
 FromELF: creating hex file...
-"..\OBJ\CAN.axf" - 0 Error(s), 57 Warning(s).
+"..\OBJ\CAN.axf" - 0 Error(s), 51 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -249,7 +231,7 @@ Package Vendor: ARM
 <h2>Collection of Component Files used:</h2>
 
    * Component: ARM::CMSIS:CORE:5.0.2
-Build Time Elapsed:  00:00:20
+Build Time Elapsed:  00:00:28
 </pre>
 </body>
 </html>
