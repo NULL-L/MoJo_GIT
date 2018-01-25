@@ -211,7 +211,8 @@ float position_bias[12]={0,0,0,0,0,0,0,0,0,0,0,0};
  float delta_count_tmp=0;
  float current_measure=0;				
  float ADCConvertedValue=0;
- 
+ float current_raw=0;
+	 
  void speed_position_measure()
  {
  	
@@ -240,8 +241,7 @@ float position_bias[12]={0,0,0,0,0,0,0,0,0,0,0,0};
  	delta_pos=(pos_count_last[0]-pos_count_last[23])/24.0f;
  	
  	position_raw=original_absolute_position+PI*(float)(pos_count_last[0])/frequency_ratio/line_num/reduc_ratio;
- 	pos_spd_kalman_cycle();
- 	pos_before[0]=position_actual;
+ 	
 
  	delta_count_tmp=(1*pos_before[0]-1*pos_before[1]+1*pos_before[2]-pos_before[3]);
  	
@@ -254,7 +254,10 @@ float position_bias[12]={0,0,0,0,0,0,0,0,0,0,0,0};
 
 	ADCConvertedValue = SERVO_Get_Adc(Current_ADC_Channel) ;
 	current_measure=(ADCConvertedValue-2048)*2.0f*max_current/4096.0f;	
-	current_actual=current_measure;
+	current_raw=current_measure;
+
+pos_spd_kalman_cycle();
+ 	pos_before[0]=position_actual;
 
 	//Data_send(); 	
  }

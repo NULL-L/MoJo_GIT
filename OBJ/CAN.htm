@@ -3,7 +3,7 @@
 <title>Static Call Graph - [..\OBJ\CAN.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image ..\OBJ\CAN.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Tue Jan 16 21:26:11 2018
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Thu Jan 25 16:57:21 2018
 <BR><P>
 <H3>Maximum Stack Usage =        132 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -564,7 +564,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[7b]"></a>speed_position_measure</STRONG> (Thumb, 734 bytes, Stack size 48 bytes, servo.o(.text))
+<P><STRONG><a name="[7b]"></a>speed_position_measure</STRONG> (Thumb, 730 bytes, Stack size 48 bytes, servo.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 116<LI>Call Chain = speed_position_measure &rArr; pos_spd_kalman_cycle &rArr; arm_mat_mult_f32
 </UL>
 <BR>[Calls]<UL><LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;pos_spd_kalman_cycle
@@ -588,7 +588,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[7f]"></a>PID_control_speed</STRONG> (Thumb, 696 bytes, Stack size 24 bytes, servo.o(.text))
+<P><STRONG><a name="[7f]"></a>PID_control_speed</STRONG> (Thumb, 708 bytes, Stack size 24 bytes, servo.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 56<LI>Call Chain = PID_control_speed &rArr; __aeabi_cdcmple
 </UL>
 <BR>[Calls]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_f2d
@@ -612,7 +612,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
-<P><STRONG><a name="[ba]"></a>pos_spd_kalman_cycle</STRONG> (Thumb, 174 bytes, Stack size 24 bytes, kalman.o(.text))
+<P><STRONG><a name="[ba]"></a>pos_spd_kalman_cycle</STRONG> (Thumb, 274 bytes, Stack size 24 bytes, kalman.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 68<LI>Call Chain = pos_spd_kalman_cycle &rArr; arm_mat_mult_f32
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;arm_mat_sub_f32
@@ -647,8 +647,8 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[70]"></a>_sys_exit</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, usart.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__sig_exit
-<LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_exit_exit
+<BR><BR>[Called By]<UL><LI><a href="#[6f]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__rt_exit_exit
+<LI><a href="#[eb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__sig_exit
 </UL>
 
 <P><STRONG><a name="[ed]"></a>_ttywrch</STRONG> (Thumb, 4 bytes, Stack size 0 bytes, usart.o(.text), UNUSED)
@@ -660,15 +660,15 @@ Global Symbols
 <P><STRONG><a name="[73]"></a>uart_init</STRONG> (Thumb, 172 bytes, Stack size 40 bytes, usart.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 108<LI>Call Chain = uart_init &rArr; USART_Init &rArr; RCC_GetClocksFreq
 </UL>
-<BR>[Calls]<UL><LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Init
-<LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_ITConfig
-<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Cmd
-<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_ClearFlag
-<LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
+<BR>[Calls]<UL><LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_APB2PeriphClockCmd
 <LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_PinAFConfig
 <LI><a href="#[86]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;RCC_AHB1PeriphClockCmd
 <LI><a href="#[87]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 <LI><a href="#[85]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;NVIC_Init
+<LI><a href="#[c5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Init
+<LI><a href="#[c8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_ITConfig
+<LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_Cmd
+<LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;USART_ClearFlag
 </UL>
 <BR>[Called By]<UL><LI><a href="#[6b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
@@ -1794,11 +1794,11 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[ee]"></a>_d2f</STRONG> (Thumb, 700 bytes, Stack size 32 bytes, d2f_clz.o(x$fpl$d2f), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fp_trapveneer
+<BR><BR>[Calls]<UL><LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_exception
+<LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_dnaninf
+<LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fp_trapveneer
 <LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__funder
 <LI><a href="#[f0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_fretinf
-<LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_exception
-<LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_dnaninf
 </UL>
 
 <P><STRONG><a name="[b9]"></a>__aeabi_dadd</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, daddsub_clz.o(x$fpl$dadd))
@@ -1944,8 +1944,8 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[100]"></a>__dunder_d</STRONG> (Thumb, 64 bytes, Stack size 24 bytes, dunder_clz.o(x$fpl$dunder), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fp_trapveneer
-<LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_drenorm1
+<BR><BR>[Calls]<UL><LI><a href="#[106]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_drenorm1
+<LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fp_trapveneer
 </UL>
 <BR>[Called By]<UL><LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_dnaninf
 <LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_dsub
@@ -1955,9 +1955,7 @@ Global Symbols
 <BR><BR>[Calls]<UL><LI><a href="#[107]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_return_NaN
 <LI><a href="#[f2]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fp_trapveneer
 </UL>
-<BR>[Called By]<UL><LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__funder
-<LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_fnaninf
-<LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__dunder
+<BR>[Called By]<UL><LI><a href="#[f9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__dunder
 <LI><a href="#[f1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_dnaninf
 <LI><a href="#[ff]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_dmul
 <LI><a href="#[fc]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_dfix
@@ -1965,6 +1963,8 @@ Global Symbols
 <LI><a href="#[103]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_dsub
 <LI><a href="#[f4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_dadd
 <LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_d2f
+<LI><a href="#[f3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__funder
+<LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_fnaninf
 </UL>
 
 <P><STRONG><a name="[92]"></a>__aeabi_f2d</STRONG> (Thumb, 0 bytes, Stack size 16 bytes, f2d.o(x$fpl$f2d))
@@ -1981,14 +1981,14 @@ Global Symbols
 </UL>
 
 <P><STRONG><a name="[108]"></a>_f2d</STRONG> (Thumb, 122 bytes, Stack size 16 bytes, f2d.o(x$fpl$f2d), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_fnaninf
-<LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_dretinf
+<BR><BR>[Calls]<UL><LI><a href="#[fb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_dretinf
 <LI><a href="#[109]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__dflt_normalise
+<LI><a href="#[10a]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_fnaninf
 </UL>
 
 <P><STRONG><a name="[10a]"></a>__fpl_fnaninf</STRONG> (Thumb, 242 bytes, Stack size 8 bytes, fnaninf.o(x$fpl$fnaninf), UNUSED)
-<BR><BR>[Calls]<UL><LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__funder_d
-<LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_exception
+<BR><BR>[Calls]<UL><LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_exception
+<LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__funder_d
 </UL>
 <BR>[Called By]<UL><LI><a href="#[108]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_f2d
 </UL>
@@ -2026,10 +2026,10 @@ Global Symbols
 <P><STRONG><a name="[f2]"></a>_fp_trapveneer</STRONG> (Thumb, 36 bytes, Stack size 16 bytes, trapv.o(x$fpl$trapveneer), UNUSED)
 <BR><BR>[Calls]<UL><LI><a href="#[e5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_fp_trap
 </UL>
-<BR>[Called By]<UL><LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__funder_d
-<LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_exception
+<BR>[Called By]<UL><LI><a href="#[ef]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__fpl_exception
 <LI><a href="#[100]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__dunder_d
 <LI><a href="#[ee]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;_d2f
+<LI><a href="#[10b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__funder_d
 </UL>
 
 <P><STRONG><a name="[10c]"></a>__fpl_cmpreturn</STRONG> (Thumb, 90 bytes, Stack size 0 bytes, trapv.o(x$fpl$trapveneer), UNUSED)

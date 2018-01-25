@@ -8,8 +8,11 @@
  */
 
 extern float position_raw;
+extern float current_raw;
+
 extern float position_actual;
 extern float speed_actual;
+extern float current_actual;
 
 //extern float sample_delta_ms;//=0.01;//0.0394;修改main文件里的值
 
@@ -64,8 +67,14 @@ extern float speed_actual;
 // const float Q=3.229820487531232e-17;
 //const float R=3.229820487531232e-16;
 
-const float Q_value=3.229820487531232e-17;
-const float R_value=3.229820487531232e-16;
+const float Q_value=1.291928195012493e-15;
+const float R_value=1.291928195012493e-15;
+
+const float Current_Q_value=2.441406250000000e-05;
+const float Current_R_value=0.002441406250000;
+
+
+
 
 float32_t Q_init[1] ={  Q_value};
 float32_t R_init[1] ={  R_value};				
@@ -81,7 +90,7 @@ float32_t Pkk_init[4] ={  1.0, 0.0 ,0.0, 1.0 };
 float32_t zeros_2_init[2] ={  0.0, 0.0};
 float32_t xk__init[2] ={  0.0, 0.0};
 float32_t xk_init[2] ={  0.0, 0.0};
-float32_t K_init[2] ={0.156588980622307,0.091837411732784};
+float32_t K_init[2] ={0.638299059680750,0.601415779905424};
 float32_t xkk_init[2] ={  0.0, 0.0};
 
 float32_t temp_1x1_0_init[1] ={0.0};
@@ -208,10 +217,20 @@ void pos_spd_kalman_init()
 }
 
 
+float current_xk_=0;
+float current_A=1.0;
+float current_xkk=0;
+float current_zk=0;
+float current_xk=0;
+float current_K=0.095124921972504;
+float current_H=1.0;
+
 void pos_spd_kalman_cycle()
 {
 	arm_status status;//arm_mat_add_f32
 	status = arm_mat_mult_f32(&A, &xkk, &xk_);
+	
+	current_xk_=current_A*current_xkk;
 //		xk_=A*xkk;
 	
 //status = arm_mat_trans_f32(&A, &AT);
@@ -231,6 +250,8 @@ void pos_spd_kalman_cycle()
 ////    K=(Pk_*H')/(H*Pk_*H'+R);
 	
 	zk.pData[0]=position_raw;
+	
+	current_zk=current_raw;
 //    zk=[pos(j)];
 	
 	if(status==ARM_MATH_SIZE_MISMATCH){	while(1);}
@@ -238,6 +259,8 @@ void pos_spd_kalman_cycle()
 	status = arm_mat_sub_f32(&zk, &temp_1x1_0, &temp_1x1_1);
 	status = arm_mat_mult_f32(&K, &temp_1x1_1, &temp_2x1_2);
 	status = arm_mat_add_f32(&xk_, &temp_2x1_2, &xk);
+	
+	 current_xk=current_xk_+current_K*(current_zk-current_H*current_xk_);
 //    xk=xk_+K*(zk-H*xk_);
 	
 //if(status==ARM_MATH_SIZE_MISMATCH){	while(1);}
@@ -247,6 +270,8 @@ void pos_spd_kalman_cycle()
 ////    Pk=(eye(2)-K*H)*Pk_;
 	
 	status = arm_mat_mult_f32(&eye_2, &xk, &xkk);  
+	
+	current_xkk=current_xk;
 //    xkk=xk;
 	
 //if(status==ARM_MATH_SIZE_MISMATCH){	while(1);}
@@ -254,6 +279,8 @@ void pos_spd_kalman_cycle()
 ////    Pkk=Pk;
 	
 position_actual=xk.pData[0];//K.pData[0];//
+
+current_actual=current_xk;
 //    pos1(j)=xk(1);
 
 speed_actual=xk.pData[1]*1000.0;
