@@ -1,10 +1,10 @@
-#include "servo.h"
+ï»¿#include "servo.h"
 
 /*
  * 
- * ÃèÊö  £ºËÅ·ş¿ØÖÆ
- * ÊäÈë  £ºÎŞ
- * Êä³ö  £ºÎŞ
+ * æè¿°  ï¼šä¼ºæœæ§åˆ¶
+ * è¾“å…¥  ï¼šæ— 
+ * è¾“å‡º  ï¼šæ— 
  */
 
 extern float speed_actual;
@@ -12,12 +12,12 @@ extern float position_actual;
 extern float current_actual;	
 
 extern float current_control[2];
-extern	float speed_control[2];//ËÙ¶ÈÖ¸Áî(µ±Ç°ºÍÉÏ´ÎµÄ)
+extern	float speed_control[2];//é€Ÿåº¦æŒ‡ä»¤(å½“å‰å’Œä¸Šæ¬¡çš„)
 extern	float position_control[2];
 
 extern	float _position;
 extern	float _speed;
-extern	float _current;//½ÓÊÕµ½µÄ¸úËæÄ¿±ê
+extern	float _current;//æ¥æ”¶åˆ°çš„è·Ÿéšç›®æ ‡
 
 extern	float current_Kp;
 extern	float current_Ki;//0.0001
@@ -40,37 +40,37 @@ void SERVO_DAC_Configuration(void)
 	  GPIO_InitTypeDef  GPIO_InitStructure;
 	DAC_InitTypeDef DAC_InitType;
 	
-  RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);//Ê¹ÄÜGPIOAÊ±ÖÓ
-  RCC_APB1PeriphClockCmd(RCC_APB1Periph_DAC, ENABLE);//Ê¹ÄÜDACÊ±ÖÓ
+  RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);//ä½¿èƒ½GPIOAæ—¶é’Ÿ
+  RCC_APB1PeriphClockCmd(RCC_APB1Periph_DAC, ENABLE);//ä½¿èƒ½DACæ—¶é’Ÿ
 	   
   GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4;
-  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AN;//Ä£ÄâÊäÈë
-  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_DOWN;//ÏÂÀ­
-  GPIO_Init(GPIOA, &GPIO_InitStructure);//³õÊ¼»¯
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AN;//æ¨¡æ‹Ÿè¾“å…¥
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_DOWN;//ä¸‹æ‹‰
+  GPIO_Init(GPIOA, &GPIO_InitStructure);//åˆå§‹åŒ–
 
-	DAC_InitType.DAC_Trigger=DAC_Trigger_None;	//²»Ê¹ÓÃ´¥·¢¹¦ÄÜ TEN1=0
-	DAC_InitType.DAC_WaveGeneration=DAC_WaveGeneration_None;//²»Ê¹ÓÃ²¨ĞÎ·¢Éú
-	DAC_InitType.DAC_LFSRUnmask_TriangleAmplitude=DAC_LFSRUnmask_Bit0;//ÆÁ±Î¡¢·ùÖµÉèÖÃ
-	DAC_InitType.DAC_OutputBuffer=DAC_OutputBuffer_Disable ;	//DAC1Êä³ö»º´æ¹Ø±Õ BOFF1=1
-  DAC_Init(DAC_Channel_1,&DAC_InitType);	 //³õÊ¼»¯DACÍ¨µÀ1
+	DAC_InitType.DAC_Trigger=DAC_Trigger_None;	//ä¸ä½¿ç”¨è§¦å‘åŠŸèƒ½ TEN1=0
+	DAC_InitType.DAC_WaveGeneration=DAC_WaveGeneration_None;//ä¸ä½¿ç”¨æ³¢å½¢å‘ç”Ÿ
+	DAC_InitType.DAC_LFSRUnmask_TriangleAmplitude=DAC_LFSRUnmask_Bit0;//å±è”½ã€å¹…å€¼è®¾ç½®
+	DAC_InitType.DAC_OutputBuffer=DAC_OutputBuffer_Disable ;	//DAC1è¾“å‡ºç¼“å­˜å…³é—­ BOFF1=1
+  DAC_Init(DAC_Channel_1,&DAC_InitType);	 //åˆå§‹åŒ–DACé€šé“1
 
-	DAC_Cmd(DAC_Channel_1, ENABLE);  //Ê¹ÄÜDACÍ¨µÀ1
+	DAC_Cmd(DAC_Channel_1, ENABLE);  //ä½¿èƒ½DACé€šé“1
   
-  DAC_SetChannel1Data(DAC_Align_12b_R, 0);  //12Î»ÓÒ¶ÔÆëÊı¾İ¸ñÊ½ÉèÖÃDACÖµ
+  DAC_SetChannel1Data(DAC_Align_12b_R, 0);  //12ä½å³å¯¹é½æ•°æ®æ ¼å¼è®¾ç½®DACå€¼
 	
-	/*¶¨ÒåÒ»¸öGPIO_InitTypeDefÀàĞÍµÄ½á¹¹Ìå*/
+	/*å®šä¹‰ä¸€ä¸ªGPIO_InitTypeDefç±»å‹çš„ç»“æ„ä½“*/
 //  GPIO_InitTypeDef  GPIO_InitStructure;
-  	/*¿ªÆôGPIOFµÄÍâÉèÊ±ÖÓ*/
+  	/*å¼€å¯GPIOFçš„å¤–è®¾æ—¶é’Ÿ*/
   RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);
-/*Ñ¡ÔñÒª¿ØÖÆµÄGPIOFÒı½Å*/		
+/*é€‰æ‹©è¦æ§åˆ¶çš„GPIOFå¼•è„š*/		
   GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6 | GPIO_Pin_7;
-  /*ÉèÖÃÒı½ÅÄ£Ê½ÎªÍ¨ÓÃÍÆÍìÊä³ö*/
+  /*è®¾ç½®å¼•è„šæ¨¡å¼ä¸ºé€šç”¨æ¨æŒ½è¾“å‡º*/
   GPIO_InitStructure.GPIO_Mode = GPIO_Mode_OUT;
   GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
-  /*ÉèÖÃÒı½ÅËÙÂÊÎª100MHz */   
+  /*è®¾ç½®å¼•è„šé€Ÿç‡ä¸º100MHz */   
   GPIO_InitStructure.GPIO_Speed = GPIO_Speed_100MHz;
   GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_DOWN;
-  	/*µ÷ÓÃ¿âº¯Êı£¬³õÊ¼»¯GPIOF*/
+  	/*è°ƒç”¨åº“å‡½æ•°ï¼Œåˆå§‹åŒ–GPIOF*/
   GPIO_Init(GPIOA, &GPIO_InitStructure);
 	
 	GPIO_ResetBits(GPIOA,GPIO_Pin_6);
@@ -86,53 +86,53 @@ void SERVO_ADC_Configuration(void)
 	ADC_CommonInitTypeDef ADC_CommonInitStructure;
 	ADC_InitTypeDef       ADC_InitStructure;
 	
-  RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);//Ê¹ÄÜGPIOAÊ±ÖÓ
-  RCC_APB2PeriphClockCmd(RCC_APB2Periph_ADC1, ENABLE); //Ê¹ÄÜADC1Ê±ÖÓ
+  RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);//ä½¿èƒ½GPIOAæ—¶é’Ÿ
+  RCC_APB2PeriphClockCmd(RCC_APB2Periph_ADC1, ENABLE); //ä½¿èƒ½ADC1æ—¶é’Ÿ
 
-  //ÏÈ³õÊ¼»¯ADC1Í¨µÀ5 IO¿Ú
-  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5;//PA5 Í¨µÀ5
-  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AN;//Ä£ÄâÊäÈë
-  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL ;//²»´øÉÏÏÂÀ­
-  GPIO_Init(GPIOA, &GPIO_InitStructure);//³õÊ¼»¯  
+  //å…ˆåˆå§‹åŒ–ADC1é€šé“5 IOå£
+  GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5;//PA5 é€šé“5
+  GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AN;//æ¨¡æ‹Ÿè¾“å…¥
+  GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL ;//ä¸å¸¦ä¸Šä¸‹æ‹‰
+  GPIO_Init(GPIOA, &GPIO_InitStructure);//åˆå§‹åŒ–  
   
-	RCC_APB2PeriphResetCmd(RCC_APB2Periph_ADC1,ENABLE);	  //ADC1¸´Î»
-	RCC_APB2PeriphResetCmd(RCC_APB2Periph_ADC1,DISABLE);	//¸´Î»½áÊø	 
+	RCC_APB2PeriphResetCmd(RCC_APB2Periph_ADC1,ENABLE);	  //ADC1å¤ä½
+	RCC_APB2PeriphResetCmd(RCC_APB2Periph_ADC1,DISABLE);	//å¤ä½ç»“æŸ	 
 	
 	
-  ADC_CommonInitStructure.ADC_Mode = ADC_Mode_Independent;//¶ÀÁ¢Ä£Ê½
-  ADC_CommonInitStructure.ADC_TwoSamplingDelay = ADC_TwoSamplingDelay_5Cycles;//Á½¸ö²ÉÑù½×¶ÎÖ®¼äµÄÑÓ³Ù5¸öÊ±ÖÓ
-  ADC_CommonInitStructure.ADC_DMAAccessMode = ADC_DMAAccessMode_Disabled; //DMAÊ§ÄÜ
-  ADC_CommonInitStructure.ADC_Prescaler = ADC_Prescaler_Div4;//Ô¤·ÖÆµ4·ÖÆµ¡£ADCCLK=PCLK2/4=84/4=21Mhz,ADCÊ±ÖÓ×îºÃ²»Òª³¬¹ı36Mhz 
-  ADC_CommonInit(&ADC_CommonInitStructure);//³õÊ¼»¯
+  ADC_CommonInitStructure.ADC_Mode = ADC_Mode_Independent;//ç‹¬ç«‹æ¨¡å¼
+  ADC_CommonInitStructure.ADC_TwoSamplingDelay = ADC_TwoSamplingDelay_5Cycles;//ä¸¤ä¸ªé‡‡æ ·é˜¶æ®µä¹‹é—´çš„å»¶è¿Ÿ5ä¸ªæ—¶é’Ÿ
+  ADC_CommonInitStructure.ADC_DMAAccessMode = ADC_DMAAccessMode_Disabled; //DMAå¤±èƒ½
+  ADC_CommonInitStructure.ADC_Prescaler = ADC_Prescaler_Div4;//é¢„åˆ†é¢‘4åˆ†é¢‘ã€‚ADCCLK=PCLK2/4=84/4=21Mhz,ADCæ—¶é’Ÿæœ€å¥½ä¸è¦è¶…è¿‡36Mhz 
+  ADC_CommonInit(&ADC_CommonInitStructure);//åˆå§‹åŒ–
   
-  ADC_InitStructure.ADC_Resolution = ADC_Resolution_12b;//12Î»Ä£Ê½
-  ADC_InitStructure.ADC_ScanConvMode = DISABLE;//·ÇÉ¨ÃèÄ£Ê½	
-  ADC_InitStructure.ADC_ContinuousConvMode = DISABLE;//¹Ø±ÕÁ¬Ğø×ª»»
-  ADC_InitStructure.ADC_ExternalTrigConvEdge = ADC_ExternalTrigConvEdge_None;//½ûÖ¹´¥·¢¼ì²â£¬Ê¹ÓÃÈí¼ş´¥·¢
-  ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;//ÓÒ¶ÔÆë	
-  ADC_InitStructure.ADC_NbrOfConversion = 1;//1¸ö×ª»»ÔÚ¹æÔòĞòÁĞÖĞ Ò²¾ÍÊÇÖ»×ª»»¹æÔòĞòÁĞ1 
-  ADC_Init(ADC1, &ADC_InitStructure);//ADC³õÊ¼»¯
+  ADC_InitStructure.ADC_Resolution = ADC_Resolution_12b;//12ä½æ¨¡å¼
+  ADC_InitStructure.ADC_ScanConvMode = DISABLE;//éæ‰«ææ¨¡å¼	
+  ADC_InitStructure.ADC_ContinuousConvMode = DISABLE;//å…³é—­è¿ç»­è½¬æ¢
+  ADC_InitStructure.ADC_ExternalTrigConvEdge = ADC_ExternalTrigConvEdge_None;//ç¦æ­¢è§¦å‘æ£€æµ‹ï¼Œä½¿ç”¨è½¯ä»¶è§¦å‘
+  ADC_InitStructure.ADC_DataAlign = ADC_DataAlign_Right;//å³å¯¹é½	
+  ADC_InitStructure.ADC_NbrOfConversion = 1;//1ä¸ªè½¬æ¢åœ¨è§„åˆ™åºåˆ—ä¸­ ä¹Ÿå°±æ˜¯åªè½¬æ¢è§„åˆ™åºåˆ—1 
+  ADC_Init(ADC1, &ADC_InitStructure);//ADCåˆå§‹åŒ–
   
   
-	ADC_Cmd(ADC1, ENABLE);//¿ªÆôAD×ª»»Æ÷
+	ADC_Cmd(ADC1, ENABLE);//å¼€å¯ADè½¬æ¢å™¨
 	
 }
 
 u16 SERVO_Get_Adc(u8 ch)   
 {
-	  	//ÉèÖÃÖ¸¶¨ADCµÄ¹æÔò×éÍ¨µÀ£¬Ò»¸öĞòÁĞ£¬²ÉÑùÊ±¼ä
-	ADC_RegularChannelConfig(ADC1, ch, 1, ADC_SampleTime_28Cycles );	//ADC1,ADCÍ¨µÀ,480¸öÖÜÆÚ,Ìá¸ß²ÉÑùÊ±¼ä¿ÉÒÔÌá¸ß¾«È·¶È			    
+	  	//è®¾ç½®æŒ‡å®šADCçš„è§„åˆ™ç»„é€šé“ï¼Œä¸€ä¸ªåºåˆ—ï¼Œé‡‡æ ·æ—¶é—´
+	ADC_RegularChannelConfig(ADC1, ch, 1, ADC_SampleTime_28Cycles );	//ADC1,ADCé€šé“,480ä¸ªå‘¨æœŸ,æé«˜é‡‡æ ·æ—¶é—´å¯ä»¥æé«˜ç²¾ç¡®åº¦			    
   
-	ADC_SoftwareStartConv(ADC1);		//Ê¹ÄÜÖ¸¶¨µÄADC1µÄÈí¼ş×ª»»Æô¶¯¹¦ÄÜ	
+	ADC_SoftwareStartConv(ADC1);		//ä½¿èƒ½æŒ‡å®šçš„ADC1çš„è½¯ä»¶è½¬æ¢å¯åŠ¨åŠŸèƒ½	
 	 
-	while(!ADC_GetFlagStatus(ADC1, ADC_FLAG_EOC ));//µÈ´ı×ª»»½áÊø
+	while(!ADC_GetFlagStatus(ADC1, ADC_FLAG_EOC ));//ç­‰å¾…è½¬æ¢ç»“æŸ
 
-	return ADC_GetConversionValue(ADC1);	//·µ»Ø×î½üÒ»´ÎADC1¹æÔò×éµÄ×ª»»½á¹û
+	return ADC_GetConversionValue(ADC1);	//è¿”å›æœ€è¿‘ä¸€æ¬¡ADC1è§„åˆ™ç»„çš„è½¬æ¢ç»“æœ
 }
 
 float current_output_DAC=0;
 int my_if_clockwise_test=0;
-void Current_DAC_Out(float num)//µçÁ÷Êä³ö
+void Current_DAC_Out(float num)//ç”µæµè¾“å‡º
 {
 	if (num>=0)
 	{		
@@ -160,8 +160,8 @@ void SERVO_Configuration(void)
 }
 
 float position_bias[12]={0,0,0,0,0,0,0,0,0,0,0,0};
- float speed_bias[12]={0,0,0,0,0,0,0,0,0,0,0,0};//PID¿ØÖÆÓÃÆ«²î£¬Ã¿Ò»×é¼ä¸ô2ms
- float current_bias[12]={0,0,0,0,0,0,0,0,0,0,0,0};//PID¿ØÖÆÓÃÆ«²î£¬Ã¿Ò»×é¼ä¸ô2ms
+ float speed_bias[12]={0,0,0,0,0,0,0,0,0,0,0,0};//PIDæ§åˆ¶ç”¨åå·®ï¼Œæ¯ä¸€ç»„é—´éš”2ms
+ float current_bias[12]={0,0,0,0,0,0,0,0,0,0,0,0};//PIDæ§åˆ¶ç”¨åå·®ï¼Œæ¯ä¸€ç»„é—´éš”2ms
  float speed_output[2]={0,0};
  float current_output[2]={0,0};
  int clear_PID_buf_cnt=0;
@@ -172,7 +172,7 @@ float position_bias[12]={0,0,0,0,0,0,0,0,0,0,0,0};
  float position_output[2]={0,0};
  float position_demand=0;
  
- float current_PID_x[3]={0,0,0};//PID¿ØÖÆ×´Ì¬Á¿
+ float current_PID_x[3]={0,0,0};//PIDæ§åˆ¶çŠ¶æ€é‡
  float speed_PID_x[3]={0,0,0};
  float position_PID_x[3]={0,0,0};
  
@@ -306,7 +306,7 @@ pos_spd_kalman_cycle();
 //	{speed_output[1]=-max_speed;}
 	//////////////////////////////////////////////////////////
 	//my_current_output_test=current_output[1];
-	if (current_output[1]>=max_current/current_protect_ratio)//µçÁ÷±£»¤
+	if (current_output[1]>=max_current/current_protect_ratio)//ç”µæµä¿æŠ¤
 		{current_output[1]=max_current/current_protect_ratio;}
 	if (current_output[1]<=-max_current/current_protect_ratio)
 		{current_output[1]=-max_current/current_protect_ratio;}

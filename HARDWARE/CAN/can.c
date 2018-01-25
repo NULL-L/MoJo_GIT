@@ -1,4 +1,4 @@
-#include "can.h"
+ï»¿#include "can.h"
 #include "led.h"
 #include "delay.h"
 #include "usart.h"
@@ -6,58 +6,58 @@
 
 u16 CanStdId = 0x01;
 #define CanExtId 					0x0001
-u16 CanFilterIdHigh= 			0x0000;// ¹ıÂËÆ÷±êÊ¶·ûµÄ¸ß16Î»Öµ
-u16 CanFilterIdLow=				0x0000;//	 ¹ıÂËÆ÷±êÊ¶·ûµÄµÍ16Î»Öµ
-u16 CanFilterMask=				0x007f;//	 ¹ıÂËÆ÷±êÊ¶·ûµÄµÍ16Î»Öµ
-u16 CanFilterMaskIdHigh =		0x0000;//¹ıÂËÆ÷ÆÁ±Î±êÊ¶·ûµÄ¸ß16Î»Öµ
-u16 CanFilterMaskIdLow =			0x0000;//	¹ıÂËÆ÷ÆÁ±Î±êÊ¶·ûµÄµÍ16Î»Öµ
+u16 CanFilterIdHigh= 			0x0000;// è¿‡æ»¤å™¨æ ‡è¯†ç¬¦çš„é«˜16ä½å€¼
+u16 CanFilterIdLow=				0x0000;//	 è¿‡æ»¤å™¨æ ‡è¯†ç¬¦çš„ä½16ä½å€¼
+u16 CanFilterMask=				0x007f;//	 è¿‡æ»¤å™¨æ ‡è¯†ç¬¦çš„ä½16ä½å€¼
+u16 CanFilterMaskIdHigh =		0x0000;//è¿‡æ»¤å™¨å±è”½æ ‡è¯†ç¬¦çš„é«˜16ä½å€¼
+u16 CanFilterMaskIdLow =			0x0000;//	è¿‡æ»¤å™¨å±è”½æ ‡è¯†ç¬¦çš„ä½16ä½å€¼
 
-//Í¨ĞÅ´«ÊäĞÅºÅÉùÃ÷
-	//·¢ËÍÖµ
-extern	u8 speed_send[2];//ËÙ¶È2byte
+//é€šä¿¡ä¼ è¾“ä¿¡å·å£°æ˜
+	//å‘é€å€¼
+extern	u8 speed_send[2];//é€Ÿåº¦2byte
 extern	u8 speed_send_sym;
-extern	u8 position_send[3];//Î»ÖÃ3byte
+extern	u8 position_send[3];//ä½ç½®3byte
 
-extern	u8 temperature[2];//ÎÂ¶È2byte
-extern	u8 current[2];//µçÁ÷2byte
+extern	u8 temperature[2];//æ¸©åº¦2byte
+extern	u8 current[2];//ç”µæµ2byte
 extern	u8 current_send_sym;
 
 
-extern	u8 acceleration_1[2];//¼ÓËÙ¶È×Ü¹²6byte
+extern	u8 acceleration_1[2];//åŠ é€Ÿåº¦æ€»å…±6byte
 extern	u8 acceleration_2[2];
 extern	u8 acceleration_3[2];
 
-extern	u8 angular_speed_1[2];//½ÇËÙ¶È×Ü¹²6byte
+extern	u8 angular_speed_1[2];//è§’é€Ÿåº¦æ€»å…±6byte
 extern	u8 angular_speed_2[2];
 extern	u8 angular_speed_3[2];
 
-extern	u8 rpy_angle_r[2];//×ËÌ¬½ÇRPY×Ü¹²6byte
+extern	u8 rpy_angle_r[2];//å§¿æ€è§’RPYæ€»å…±6byte
 extern	u8 rpy_angle_p[2];
 extern	u8 rpy_angle_y[2];
 
-extern	u8 hardware_id[8];//¹Ø½ÚÓ²¼şID
+extern	u8 hardware_id[8];//å…³èŠ‚ç¡¬ä»¶ID
 
 extern float speed_actual;
 extern float position_actual;
-extern float current_actual;	//²âÁ¿µÄÕæÊµÖµ
+extern float current_actual;	//æµ‹é‡çš„çœŸå®å€¼
 
 extern	float _position;
 extern	float _speed;
-extern	float _current;//½ÓÊÕµ½µÄ¸úËæÄ¿±ê
+extern	float _current;//æ¥æ”¶åˆ°çš„è·Ÿéšç›®æ ‡
 
-extern  float speed_control[2];//ËÙ¶ÈÖ¸Áî(µ±Ç°ºÍÉÏ´ÎµÄ)
+extern  float speed_control[2];//é€Ÿåº¦æŒ‡ä»¤(å½“å‰å’Œä¸Šæ¬¡çš„)
 extern	float current_control[2];
 extern	float position_control[2];
 
-extern  int  num_spd_PID_count;//ËÙ¶È¿ØÖÆÖÜÆÚ¼ÆÊı
+extern  int  num_spd_PID_count;//é€Ÿåº¦æ§åˆ¶å‘¨æœŸè®¡æ•°
 extern  int  num_cur_PID_count;
 extern  int  num_pos_PID_count;
 
 extern float pos_coeff[4];
-extern float speed_coeff[3];//ÇúÏß²åÖµÏµÊı
+extern float speed_coeff[3];//æ›²çº¿æ’å€¼ç³»æ•°
 
-extern float time_PID_delta_ms;//PIDÖÜÆÚ
-extern float time_UpToDown_delta_ms;//¿ØÖÆÃüÁîÖÜÆÚ
+extern float time_PID_delta_ms;//PIDå‘¨æœŸ
+extern float time_UpToDown_delta_ms;//æ§åˆ¶å‘½ä»¤å‘¨æœŸ
 
 
 
@@ -71,29 +71,29 @@ unsigned char can2_rec_flag = 0;
 
 const unsigned int CAN_baud_table[CAN_BAUD_NUM][5] = 
 {
-//²¨ÌØÂÊ£¬ CAN_SJW£¬   CAN_BS1£¬    CAN_BS2£¬CAN_Prescaler 
-	{5,   CAN_SJW_1tq,CAN_BS1_13tq,CAN_BS2_2tq,450},		//Î´Í¨			
-	{10,  CAN_SJW_1tq,CAN_BS1_6tq,CAN_BS2_2tq, 400},		//Î´Í¨			
-	{15,  CAN_SJW_1tq,CAN_BS1_13tq,CAN_BS2_2tq,150},		//15K  Î´Í¨
-	{20,  CAN_SJW_1tq,CAN_BS1_6tq, CAN_BS2_2tq,200},		//20k //Î´Í¨
-	{25,  CAN_SJW_1tq,CAN_BS1_6tq, CAN_BS2_8tq,112},		//25k  Î´Í¨
-	{40,  CAN_SJW_1tq,CAN_BS1_6tq, CAN_BS2_2tq,100},		//40k  Î´Í¨
+//æ³¢ç‰¹ç‡ï¼Œ CAN_SJWï¼Œ   CAN_BS1ï¼Œ    CAN_BS2ï¼ŒCAN_Prescaler 
+	{5,   CAN_SJW_1tq,CAN_BS1_13tq,CAN_BS2_2tq,450},		//æœªé€š			
+	{10,  CAN_SJW_1tq,CAN_BS1_6tq,CAN_BS2_2tq, 400},		//æœªé€š			
+	{15,  CAN_SJW_1tq,CAN_BS1_13tq,CAN_BS2_2tq,150},		//15K  æœªé€š
+	{20,  CAN_SJW_1tq,CAN_BS1_6tq, CAN_BS2_2tq,200},		//20k //æœªé€š
+	{25,  CAN_SJW_1tq,CAN_BS1_6tq, CAN_BS2_8tq,112},		//25k  æœªé€š
+	{40,  CAN_SJW_1tq,CAN_BS1_6tq, CAN_BS2_2tq,100},		//40k  æœªé€š
 	{50,  CAN_SJW_1tq,CAN_BS1_6tq, CAN_BS2_8tq,56},			//50k	ok
 	{62,  CAN_SJW_1tq,CAN_BS1_13tq,CAN_BS2_2tq,36},			//62.5k
-	{80,  CAN_SJW_1tq,CAN_BS1_6tq, CAN_BS2_2tq,50},			//80k   Î´Í¨
+	{80,  CAN_SJW_1tq,CAN_BS1_6tq, CAN_BS2_2tq,50},			//80k   æœªé€š
 	{100, CAN_SJW_1tq,CAN_BS1_6tq, CAN_BS2_8tq,28},			//100K	ok
-	{125, CAN_SJW_1tq,CAN_BS1_13tq, CAN_BS2_2tq,18},		//125K Î´Í¨
+	{125, CAN_SJW_1tq,CAN_BS1_13tq, CAN_BS2_2tq,18},		//125K æœªé€š
 	{200, CAN_SJW_1tq,CAN_BS1_6tq, CAN_BS2_8tq,14},			//200K  ok
 	{250, CAN_SJW_1tq,CAN_BS1_15tq,CAN_BS2_5tq,8},		    //250k  ok
 	{400, CAN_SJW_1tq,CAN_BS1_15tq, CAN_BS2_5tq,5},			//400K  ok
 	//{500, CAN_SJW_1tq,CAN_BS1_15tq,CAN_BS2_5tq,4},			//500K	ok
 	//{500, CAN_SJW_1tq,CAN_BS1_9tq,CAN_BS2_8tq,4},			//500K	ok
 	{500, CAN_SJW_1tq,CAN_BS2_6tq,CAN_BS1_7tq,6},			//500K	ok
-	{666, CAN_SJW_1tq,CAN_BS1_5tq, CAN_BS2_2tq,8},			//Î´Í¨
-	{800, CAN_SJW_1tq,CAN_BS1_8tq, CAN_BS2_3tq,14},			//800K Î´Í¨
+	{666, CAN_SJW_1tq,CAN_BS1_5tq, CAN_BS2_2tq,8},			//æœªé€š
+	{800, CAN_SJW_1tq,CAN_BS1_8tq, CAN_BS2_3tq,14},			//800K æœªé€š
 	{1000,CAN_SJW_1tq,CAN_BS1_15tq,CAN_BS2_5tq,2},			//1000K	ok
 };
-//CAN1ÅäÖÃ
+//CAN1é…ç½®
 void CAN1_Configuration(void)
 {
 	GPIO_InitTypeDef  GPIO_InitStructure;
@@ -101,7 +101,7 @@ void CAN1_Configuration(void)
 	CAN_FilterInitTypeDef  CAN_FilterInitStructure;
 	/* CAN GPIOs configuration **************************************************/
 
-//	STMFLASH_Read(0X08070000,&(OD.CanStdId),17);//¶ÁÈ¡Flash
+//	STMFLASH_Read(0X08070000,&(OD.CanStdId),17);//è¯»å–Flash
 //	//CanStdId=OD.CanStdId;
 //	//CanStdId=0x7f;//
 ////	CAN_BS1= OD.CAN_BS1;
@@ -147,19 +147,19 @@ void CAN1_Configuration(void)
 
 	CAN_Baud_Process(500,&CAN_InitStructure);
 	
-	//CAN_InitStructure.CAN_Prescaler = 4;  //Ê±¼äµ¥Î»³¤¶ÈÎª
+	//CAN_InitStructure.CAN_Prescaler = 4;  //æ—¶é—´å•ä½é•¿åº¦ä¸º
 	
 	CAN_Init(CAN1, &CAN_InitStructure);
 
-	CAN_FilterInitStructure.CAN_FilterNumber = 0;	   //CAN1ÂË²¨Æ÷ºÅ´Ó0µ½13
+	CAN_FilterInitStructure.CAN_FilterNumber = 0;	   //CAN1æ»¤æ³¢å™¨å·ä»0åˆ°13
 
-	CAN_FilterInitStructure.CAN_FilterMode = CAN_FilterMode_IdMask;	   //ÂË²¨ÆÁ±ÎÄ£Ê½
+	CAN_FilterInitStructure.CAN_FilterMode = CAN_FilterMode_IdMask;	   //æ»¤æ³¢å±è”½æ¨¡å¼
 	CAN_FilterInitStructure.CAN_FilterScale = CAN_FilterScale_32bit;
 	CAN_FilterInitStructure.CAN_FilterIdHigh = CanStdId<<5;
 	CAN_FilterInitStructure.CAN_FilterIdLow = CanFilterIdLow;
-	CAN_FilterInitStructure.CAN_FilterMaskIdHigh = CanFilterMask<<5;//¹ıÂËÆ÷ÆÁ±Î±êÊ¶·ûµÄ¸ß16Î»Öµ
-	CAN_FilterInitStructure.CAN_FilterMaskIdLow = CanFilterMaskIdLow;//	¹ıÂËÆ÷ÆÁ±Î±êÊ¶·ûµÄµÍ16Î»Öµ
-	CAN_FilterInitStructure.CAN_FilterFIFOAssignment = CAN_FIFO0;// Éè¶¨ÁËÖ¸Ïò¹ıÂËÆ÷µÄFIFOÎª0
+	CAN_FilterInitStructure.CAN_FilterMaskIdHigh = CanFilterMask<<5;//è¿‡æ»¤å™¨å±è”½æ ‡è¯†ç¬¦çš„é«˜16ä½å€¼
+	CAN_FilterInitStructure.CAN_FilterMaskIdLow = CanFilterMaskIdLow;//	è¿‡æ»¤å™¨å±è”½æ ‡è¯†ç¬¦çš„ä½16ä½å€¼
+	CAN_FilterInitStructure.CAN_FilterFIFOAssignment = CAN_FIFO0;// è®¾å®šäº†æŒ‡å‘è¿‡æ»¤å™¨çš„FIFOä¸º0
 													  //This parameter can be a value of @ref CAN_filter_FIFO */
 	CAN_FilterInitStructure.CAN_FilterActivation = ENABLE;
 	CAN_FilterInit(&CAN_FilterInitStructure); 
@@ -167,7 +167,7 @@ void CAN1_Configuration(void)
 	/* Enable FIFO 0 message pending Interrupt */
 	CAN_ITConfig(CAN1, CAN_IT_FMP0, ENABLE);
 }
-//CAN2ÅäÖÃ
+//CAN2é…ç½®
 void CAN2_Configuration(void)
 {
 	GPIO_InitTypeDef  GPIO_InitStructure;
@@ -195,7 +195,7 @@ void CAN2_Configuration(void)
 
 	/* CAN configuration ********************************************************/  
 	/* Enable CAN clock */
-	RCC_APB1PeriphClockCmd(RCC_APB1Periph_CAN1 | RCC_APB1Periph_CAN2, ENABLE);//ÓÃcan2Ê±£¬can1Ê±ÖÓÒ²Òª¿ªÆô
+	RCC_APB1PeriphClockCmd(RCC_APB1Periph_CAN1 | RCC_APB1Periph_CAN2, ENABLE);//ç”¨can2æ—¶ï¼Œcan1æ—¶é’Ÿä¹Ÿè¦å¼€å¯
 
 	/* CAN register init */
 	CAN_DeInit(CAN2);
@@ -214,14 +214,14 @@ void CAN2_Configuration(void)
 	CAN_Baud_Process(500,&CAN_InitStructure);
 	CAN_Init(CAN2, &CAN_InitStructure);
 
-	CAN_FilterInitStructure.CAN_FilterNumber = 14;	   //CAN2ÂË²¨Æ÷ºÅ´Ó14µ½27
+	CAN_FilterInitStructure.CAN_FilterNumber = 14;	   //CAN2æ»¤æ³¢å™¨å·ä»14åˆ°27
 
-	CAN_FilterInitStructure.CAN_FilterMode = CAN_FilterMode_IdMask;	   //ÂË²¨ÆÁ±ÎÄ£Ê½
+	CAN_FilterInitStructure.CAN_FilterMode = CAN_FilterMode_IdMask;	   //æ»¤æ³¢å±è”½æ¨¡å¼
 	CAN_FilterInitStructure.CAN_FilterScale = CAN_FilterScale_32bit;
 	CAN_FilterInitStructure.CAN_FilterIdHigh = 0x0000;
 	CAN_FilterInitStructure.CAN_FilterIdLow = 0x0000;
-	CAN_FilterInitStructure.CAN_FilterMaskIdHigh = 0x0000;	//²»ÆÁ±ÎÈÎºÎID
-	CAN_FilterInitStructure.CAN_FilterMaskIdLow = 0x0000;		//²»ÆÁ±ÎÈÎºÎID
+	CAN_FilterInitStructure.CAN_FilterMaskIdHigh = 0x0000;	//ä¸å±è”½ä»»ä½•ID
+	CAN_FilterInitStructure.CAN_FilterMaskIdLow = 0x0000;		//ä¸å±è”½ä»»ä½•ID
 	CAN_FilterInitStructure.CAN_FilterFIFOAssignment = 0;	  // /*!< Specifies the FIFO (0 or 1) which will be assigned to the filter.
 													  //This parameter can be a value of @ref CAN_filter_FIFO */
 	CAN_FilterInitStructure.CAN_FilterActivation = ENABLE;
@@ -231,16 +231,16 @@ void CAN2_Configuration(void)
 	CAN_ITConfig(CAN2, CAN_IT_FMP0, ENABLE);
 }
 /***********************************************************************
-º¯ÊıÃû³Æ£ºCCAN_Baud_Process(unsigned int Baud,CAN_InitTypeDef *CAN_InitStructure)
-¹¦    ÄÜ£º¼ÆËã²¨ÌØÂÊ£¬·µ»Ø
-±àĞ´Ê±¼ä£º2013.4.25
-±à Ğ´ ÈË£º
-×¢    Òâ£ºCANÊ±ÖÓÎª42M
-CAN_SJW : CAN_SJW_1tq - CAN_SJW_4tq	  ²»ÄÜ±ÈÈÎºÎÒ»ÏàÎ»»º³å¶Î³¤
+å‡½æ•°åç§°ï¼šCCAN_Baud_Process(unsigned int Baud,CAN_InitTypeDef *CAN_InitStructure)
+åŠŸ    èƒ½ï¼šè®¡ç®—æ³¢ç‰¹ç‡ï¼Œè¿”å›
+ç¼–å†™æ—¶é—´ï¼š2013.4.25
+ç¼– å†™ äººï¼š
+æ³¨    æ„ï¼šCANæ—¶é’Ÿä¸º42M
+CAN_SJW : CAN_SJW_1tq - CAN_SJW_4tq	  ä¸èƒ½æ¯”ä»»ä½•ä¸€ç›¸ä½ç¼“å†²æ®µé•¿
 CAN_BS1 : CAN_BS1_1tq - CAN_BS1_16tq
 CAN_BS2 : CAN_BS2_1tq - CAN_BS2_8tq
 CAN_Prescaler : 1 - 1024
-	ÅäÖÃËµÃ÷£º
+	é…ç½®è¯´æ˜ï¼š
 CAN_SJW + CAN_BS1 / (CAN_SJW + CAN_BS1 + CAN_BS2)
 	0.75     baud > 800k
 	0.80     baud > 500k
@@ -262,13 +262,13 @@ void CAN_Baud_Process(unsigned int Baud,CAN_InitTypeDef *CAN_InitStructure)
 		}
 	}	
 }
-//CAN1½ÓÊÕÖĞ¶Ïº¯Êı
+//CAN1æ¥æ”¶ä¸­æ–­å‡½æ•°
 void CAN1_RX0_IRQHandler(void)
 {
 	u8 i = 0;
 	CanRxMsg RxMessage;
 
-	RxMessage.StdId = 0x00;//×´Ì¬ÇåÁã
+	RxMessage.StdId = 0x00;//çŠ¶æ€æ¸…é›¶
 	RxMessage.ExtId = 0x00;
 	RxMessage.IDE = 0;
 	RxMessage.DLC = 0;
@@ -278,10 +278,10 @@ void CAN1_RX0_IRQHandler(void)
 
 	for (i = 0; i < 8; i++)
 	{
-		RxMessage.Data[i] = 0x00;//»º³åÇøÇåÁã
+		RxMessage.Data[i] = 0x00;//ç¼“å†²åŒºæ¸…é›¶
 	}
 
-	CAN_Receive(CAN1, CAN_FIFO0, &RxMessage); //½ÓÊÕFIFO0ÖĞµÄÊı¾İ  
+	CAN_Receive(CAN1, CAN_FIFO0, &RxMessage); //æ¥æ”¶FIFO0ä¸­çš„æ•°æ®  
 
 	
 	
@@ -319,7 +319,7 @@ if ((u8)(RxMessage.StdId >> 7) == 11)//SDO
 			mode = 0;//stop
 		}
 		else if (_mode == 1) {
-			//Î»ÖÃ¿ØÖÆ
+			//ä½ç½®æ§åˆ¶
 
 
 			u32 int_position;
@@ -425,10 +425,10 @@ if ((u8)(RxMessage.StdId >> 7) == 11)//SDO
 
 
 			//buffer_enqueue(&command_buffer_front,&command_buffer_rear, max_size, position_recv, speed_recv, time_recv, temp_position, temp_speed, temp_time);
-			//can_control_send();//·¢ËÍ¿ØÖÆÖ¡	
+			//can_control_send();//å‘é€æ§åˆ¶å¸§	
 		}
 		else if (_mode == 2||_mode == 4) {
-			//ËÙ¶È¿ØÖÆ
+			//é€Ÿåº¦æ§åˆ¶
 
 
 
@@ -471,10 +471,10 @@ if ((u8)(RxMessage.StdId >> 7) == 11)//SDO
 
 		}		
 		else if (_mode == 3) {
-			mode = 3;//Ğ£×¼ÁãÎ»
+			mode = 3;//æ ¡å‡†é›¶ä½
 		}
 //		else if (_mode == 4) {
-//			//Çı¶¯Æ÷Ö±½Ó·¢ËÍ
+//			//é©±åŠ¨å™¨ç›´æ¥å‘é€
 //			
 //			u16 int_speed;
 //			//u8  sign;
@@ -515,7 +515,7 @@ if ((u8)(RxMessage.StdId >> 7) == 11)//SDO
 //	
 //			
 //		}
-		else  if (_mode==6)////////µçÁ÷¿ØÖÆ
+		else  if (_mode==6)////////ç”µæµæ§åˆ¶
 		{
 			u16 int_current;
 			//u8  sign;
@@ -580,7 +580,7 @@ if ((u8)(RxMessage.StdId >> 7) == 11)//SDO
 		
 	}
 }
-//CAN1·¢ËÍº¯Êı
+//CAN1å‘é€å‡½æ•°
 void can1_tx(unsigned int ID,unsigned char  Data)
 {
 	
@@ -588,17 +588,17 @@ void can1_tx(unsigned int ID,unsigned char  Data)
 	uint8_t transmit_mailbox = 0;
 	CanTxMsg TxMessage;
 	
-	TxMessage.StdId=ID;	//±ê×¼±êÊ¶·ûÎª0x00
-  TxMessage.ExtId=0x0000; //À©Õ¹±êÊ¶·û0x0000
-	TxMessage.IDE = CAN_ID_STD;//Ê¹ÓÃ±ê×¼±êÊ¶·û
-	TxMessage.RTR = CAN_RTR_DATA; /* ÉèÖÃÎªÊı¾İÖ¡ */
-	TxMessage.DLC = 8;            /* Êı¾İ³¤¶È, can±¨ÎÄ¹æ¶¨×î´óµÄÊı¾İ³¤¶ÈÎª8×Ö½Ú */
+	TxMessage.StdId=ID;	//æ ‡å‡†æ ‡è¯†ç¬¦ä¸º0x00
+  TxMessage.ExtId=0x0000; //æ‰©å±•æ ‡è¯†ç¬¦0x0000
+	TxMessage.IDE = CAN_ID_STD;//ä½¿ç”¨æ ‡å‡†æ ‡è¯†ç¬¦
+	TxMessage.RTR = CAN_RTR_DATA; /* è®¾ç½®ä¸ºæ•°æ®å¸§ */
+	TxMessage.DLC = 8;            /* æ•°æ®é•¿åº¦, canæŠ¥æ–‡è§„å®šæœ€å¤§çš„æ•°æ®é•¿åº¦ä¸º8å­—èŠ‚ */
 	CAN1_data[0]=Data;
 	for(i = 0;i < 8; i ++)
 	{
 		TxMessage.Data[i] = CAN1_data[i];
 	}
-	transmit_mailbox = CAN_Transmit(CAN1,&TxMessage);  /* ·µ»ØÕâ¸öĞÅÏ¢ÇëÇó·¢ËÍµÄÓÊÏäºÅ0,1,2»òÃ»ÓĞÓÊÏäÉêÇë·¢ËÍno_box */	
+	transmit_mailbox = CAN_Transmit(CAN1,&TxMessage);  /* è¿”å›è¿™ä¸ªä¿¡æ¯è¯·æ±‚å‘é€çš„é‚®ç®±å·0,1,2æˆ–æ²¡æœ‰é‚®ç®±ç”³è¯·å‘é€no_box */	
 //	while((CAN_TransmitStatus(CAN1, transmit_mailbox)  !=  CANTXOK) && (i  !=  0xFFFF))
 //	{
 //		i ++;
@@ -610,24 +610,24 @@ void can_send(u8 type, u8* Data, u8 num)
 	u8 i = 0;
 	CanTxMsg TxMessage;
 	//u8 mbox;int_speed | (0xff00 & ((unsigned int)RxMessage.Data[4] << 8));
-	TxMessage.StdId = (CanStdId&0x07F) | (0x780 & (type << 7));	//±ê×¼±êÊ¶·û
-	TxMessage.ExtId = CanExtId; //À©Õ¹±êÊ¶·û
-	TxMessage.IDE = CAN_ID_STD;//Ê¹ÓÃ±ê×¼±êÊ¶·û
-	TxMessage.RTR = CAN_RTR_DATA;//ÎªÊı¾İÖ¡
-	TxMessage.DLC = num;	//	ÏûÏ¢µÄÊı¾İ³¤¶È
-  //  TxMessage.Data[0]=Data1; //µÚÒ»¸ö×Ö½ÚÊı¾İ
-  //  TxMessage.Data[1]=Data2; //µÚ¶ş¸ö×Ö½ÚÊı¾İ 
+	TxMessage.StdId = (CanStdId&0x07F) | (0x780 & (type << 7));	//æ ‡å‡†æ ‡è¯†ç¬¦
+	TxMessage.ExtId = CanExtId; //æ‰©å±•æ ‡è¯†ç¬¦
+	TxMessage.IDE = CAN_ID_STD;//ä½¿ç”¨æ ‡å‡†æ ‡è¯†ç¬¦
+	TxMessage.RTR = CAN_RTR_DATA;//ä¸ºæ•°æ®å¸§
+	TxMessage.DLC = num;	//	æ¶ˆæ¯çš„æ•°æ®é•¿åº¦
+  //  TxMessage.Data[0]=Data1; //ç¬¬ä¸€ä¸ªå­—èŠ‚æ•°æ®
+  //  TxMessage.Data[1]=Data2; //ç¬¬äºŒä¸ªå­—èŠ‚æ•°æ® 
 
 	for (i = 0; i < num; i++)
 	{
-		TxMessage.Data[i] = Data[i];//Ğ´Èë»º³åÇø
+		TxMessage.Data[i] = Data[i];//å†™å…¥ç¼“å†²åŒº
 	}
 
-	CAN_Transmit(CAN1, &TxMessage); //·¢ËÍÊı¾İ
+	CAN_Transmit(CAN1, &TxMessage); //å‘é€æ•°æ®
 
 }
 
-//CAN2½ÓÊÕÖĞ¶Ïº¯Êı
+//CAN2æ¥æ”¶ä¸­æ–­å‡½æ•°
 void CAN2_RX0_IRQHandler(void)
 {
 	CanRxMsg RxMessage; 
@@ -638,14 +638,14 @@ void CAN2_RX0_IRQHandler(void)
 	RxMessage.FMI=0;
 	RxMessage.Data[0]=0x00;     
 	
-	CAN_Receive(CAN2,CAN_FIFO0, &RxMessage);  /* ´Ëº¯Êı°üº¬ÊÍ·ÅÌá³ö±¨ÎÄÁËµÄ,ÔÚ·Ç±ØÒªÊ±,²»ĞèÒª×Ô¼ºÊÍ·Å */
+	CAN_Receive(CAN2,CAN_FIFO0, &RxMessage);  /* æ­¤å‡½æ•°åŒ…å«é‡Šæ”¾æå‡ºæŠ¥æ–‡äº†çš„,åœ¨éå¿…è¦æ—¶,ä¸éœ€è¦è‡ªå·±é‡Šæ”¾ */
 	
 	if((RxMessage.StdId==0x11)&&(RxMessage.Data[0]==0xaa)) { ;}	
 
 	can2_rec_flag = 1;
-	CAN_ClearITPendingBit(CAN2,CAN_IT_FMP0);  /* Çå³ı¹ÒÆğÖĞ¶Ï */
+	CAN_ClearITPendingBit(CAN2,CAN_IT_FMP0);  /* æ¸…é™¤æŒ‚èµ·ä¸­æ–­ */
 }
-//CAN2·¢ËÍº¯Êı
+//CAN2å‘é€å‡½æ•°
 void can2_tx(unsigned int ID,unsigned char  Data)
 {
 	
@@ -653,17 +653,17 @@ void can2_tx(unsigned int ID,unsigned char  Data)
 	uint8_t transmit_mailbox = 0;
 	CanTxMsg TxMessage;
 	
-	TxMessage.StdId=ID;	//±ê×¼±êÊ¶·ûÎª0x00
-  TxMessage.ExtId=0x0000; //À©Õ¹±êÊ¶·û0x0000
-	TxMessage.IDE = CAN_ID_STD;//Ê¹ÓÃ±ê×¼±êÊ¶·û
-	TxMessage.RTR = CAN_RTR_DATA; /* ÉèÖÃÎªÊı¾İÖ¡ */
-	TxMessage.DLC = 8;            /* Êı¾İ³¤¶È, can±¨ÎÄ¹æ¶¨×î´óµÄÊı¾İ³¤¶ÈÎª8×Ö½Ú */
+	TxMessage.StdId=ID;	//æ ‡å‡†æ ‡è¯†ç¬¦ä¸º0x00
+  TxMessage.ExtId=0x0000; //æ‰©å±•æ ‡è¯†ç¬¦0x0000
+	TxMessage.IDE = CAN_ID_STD;//ä½¿ç”¨æ ‡å‡†æ ‡è¯†ç¬¦
+	TxMessage.RTR = CAN_RTR_DATA; /* è®¾ç½®ä¸ºæ•°æ®å¸§ */
+	TxMessage.DLC = 8;            /* æ•°æ®é•¿åº¦, canæŠ¥æ–‡è§„å®šæœ€å¤§çš„æ•°æ®é•¿åº¦ä¸º8å­—èŠ‚ */
 	CAN2_data[0]=Data;
 	for(i = 0;i < 8; i ++)
 	{
 		TxMessage.Data[i] = CAN2_data[i];
 	}
-	transmit_mailbox = CAN_Transmit(CAN2,&TxMessage);  /* ·µ»ØÕâ¸öĞÅÏ¢ÇëÇó·¢ËÍµÄÓÊÏäºÅ0,1,2»òÃ»ÓĞÓÊÏäÉêÇë·¢ËÍno_box */	
+	transmit_mailbox = CAN_Transmit(CAN2,&TxMessage);  /* è¿”å›è¿™ä¸ªä¿¡æ¯è¯·æ±‚å‘é€çš„é‚®ç®±å·0,1,2æˆ–æ²¡æœ‰é‚®ç®±ç”³è¯·å‘é€no_box */	
 //	while((CAN_TransmitStatus(CAN2, transmit_mailbox)  !=  CANTXOK) && (i  !=  0xFFFF))
 //	{
 //		i ++;
@@ -671,16 +671,16 @@ void can2_tx(unsigned int ID,unsigned char  Data)
 }
 
 
-void position_speed_send(void)//·¢ËÍÔË¶¯×´Ì¬Ö¡
+void position_speed_send(void)//å‘é€è¿åŠ¨çŠ¶æ€å¸§
 {
-	u8 CanSendData[8] = { 0x00,0x00,0x00,0x00,0x00,0x00,0x00 };//»º³åÇøÉùÃ÷
+	u8 CanSendData[8] = { 0x00,0x00,0x00,0x00,0x00,0x00,0x00 };//ç¼“å†²åŒºå£°æ˜
 
 	CanSendData[1] = position_send[0];
 	CanSendData[2] = position_send[1];
 	CanSendData[3] = position_send[2];
 	CanSendData[4] = speed_send[0];
 	CanSendData[5] = speed_send[1];
-	CanSendData[6] = current[0];//µçÁ÷
+	CanSendData[6] = current[0];//ç”µæµ
 	CanSendData[7] = current[1];
 	
 	if(speed_send_sym>0)
@@ -701,22 +701,22 @@ void position_speed_send(void)//·¢ËÍÔË¶¯×´Ì¬Ö¡
 	
 	
 	
-	can_send(0, CanSendData, 8);//·¢ËÍÔË¶¯×´Ì¬Ö¡
+	can_send(0, CanSendData, 8);//å‘é€è¿åŠ¨çŠ¶æ€å¸§
 }
 
-void temperature_send(void)//·¢ËÍÎÂ¶ÈÖ¡
+void temperature_send(void)//å‘é€æ¸©åº¦å¸§
 {
-	u8 CanSendData[8] = { 0x00,0x00,0x00,0x00,0x00,0x00,0x00 };//»º³åÇøÉùÃ÷
+	u8 CanSendData[8] = { 0x00,0x00,0x00,0x00,0x00,0x00,0x00 };//ç¼“å†²åŒºå£°æ˜
 
 	CanSendData[0] = temperature[0];
 	CanSendData[1] = temperature[1];
 
-	can_send(1, CanSendData, 8);//·¢ËÍÎÂ¶ÈÖ¡
+	can_send(1, CanSendData, 8);//å‘é€æ¸©åº¦å¸§
 }
 
-void acceleration_send(void)//·¢ËÍ¼ÓËÙ¶ÈÖ¡
+void acceleration_send(void)//å‘é€åŠ é€Ÿåº¦å¸§
 {
-	u8 CanSendData[8] = { 0x00,0x00,0x00,0x00,0x00,0x00,0x00 };//»º³åÇøÉùÃ÷
+	u8 CanSendData[8] = { 0x00,0x00,0x00,0x00,0x00,0x00,0x00 };//ç¼“å†²åŒºå£°æ˜
 
 	CanSendData[0] = acceleration_1[0];
 	CanSendData[1] = acceleration_1[1];
@@ -725,12 +725,12 @@ void acceleration_send(void)//·¢ËÍ¼ÓËÙ¶ÈÖ¡
 	CanSendData[4] = acceleration_3[0];
 	CanSendData[5] = acceleration_3[1];
 
-	can_send(2, CanSendData, 8);//·¢ËÍ¼ÓËÙ¶ÈÖ¡
+	can_send(2, CanSendData, 8);//å‘é€åŠ é€Ÿåº¦å¸§
 }
 
-void angular_speed_send(void)//·¢ËÍ½ÇËÙ¶ÈÖ¡
+void angular_speed_send(void)//å‘é€è§’é€Ÿåº¦å¸§
 {
-	u8 CanSendData[8] = { 0x00,0x00,0x00,0x00,0x00,0x00,0x00 };//»º³åÇøÉùÃ÷
+	u8 CanSendData[8] = { 0x00,0x00,0x00,0x00,0x00,0x00,0x00 };//ç¼“å†²åŒºå£°æ˜
 
 	CanSendData[0] = angular_speed_1[0];
 	CanSendData[1] = angular_speed_1[1];
@@ -739,12 +739,12 @@ void angular_speed_send(void)//·¢ËÍ½ÇËÙ¶ÈÖ¡
 	CanSendData[4] = angular_speed_3[0];
 	CanSendData[5] = angular_speed_3[1];
 
-	can_send(3, CanSendData, 8);//·¢ËÍ½ÇËÙ¶ÈÖ¡
+	can_send(3, CanSendData, 8);//å‘é€è§’é€Ÿåº¦å¸§
 }
 
-void rpy_angle_send(void)//·¢ËÍ×ËÌ¬½ÇÖ¡
+void rpy_angle_send(void)//å‘é€å§¿æ€è§’å¸§
 {
-	u8 CanSendData[8] = { 0x00,0x00,0x00,0x00,0x00,0x00,0x00 };//»º³åÇøÉùÃ÷
+	u8 CanSendData[8] = { 0x00,0x00,0x00,0x00,0x00,0x00,0x00 };//ç¼“å†²åŒºå£°æ˜
 
 	CanSendData[0] = rpy_angle_r[0];
 	CanSendData[1] = rpy_angle_r[1];
@@ -753,12 +753,12 @@ void rpy_angle_send(void)//·¢ËÍ×ËÌ¬½ÇÖ¡
 	CanSendData[4] = rpy_angle_y[0];
 	CanSendData[5] = rpy_angle_y[1];
 
-	can_send(4, CanSendData, 8);//·¢ËÍ×ËÌ¬½ÇÖ¡
+	can_send(4, CanSendData, 8);//å‘é€å§¿æ€è§’å¸§
 }
 
-void hardware_id_send(void)//·¢ËÍ¹Ø½ÚÓ²¼şÀàĞÍÖ¡
+void hardware_id_send(void)//å‘é€å…³èŠ‚ç¡¬ä»¶ç±»å‹å¸§
 {
-	u8 CanSendData[8] = { 0x00,0x00,0x00,0x00,0x00,0x00,0x00 };//»º³åÇøÉùÃ÷
+	u8 CanSendData[8] = { 0x00,0x00,0x00,0x00,0x00,0x00,0x00 };//ç¼“å†²åŒºå£°æ˜
 
 	CanSendData[0] = hardware_id[0];
 	CanSendData[1] = hardware_id[1];
@@ -769,12 +769,12 @@ void hardware_id_send(void)//·¢ËÍ¹Ø½ÚÓ²¼şÀàĞÍÖ¡
 	CanSendData[6] = hardware_id[6];
 	CanSendData[7] = hardware_id[7];
 
-	can_send(5, CanSendData, 8);//·¢ËÍ¹Ø½ÚÓ²¼şIDÖ¡
+	can_send(5, CanSendData, 8);//å‘é€å…³èŠ‚ç¡¬ä»¶IDå¸§
 }
 
-//void speed_pid_send(void)//·¢ËÍËÙ¶ÈPIDÖ¡
+//void speed_pid_send(void)//å‘é€é€Ÿåº¦PIDå¸§
 //{
-//	u8 CanSendData[8] = { 0x00,0x00,0x00,0x00,0x00,0x00,0x00 };//»º³åÇøÉùÃ÷
+//	u8 CanSendData[8] = { 0x00,0x00,0x00,0x00,0x00,0x00,0x00 };//ç¼“å†²åŒºå£°æ˜
 
 //	STMFLASH_Read(0X08070000,&(OD.CanStdId),17);
 //	CanSendData[0] = (u8)(OD.SpeedKp>>8);
@@ -784,12 +784,12 @@ void hardware_id_send(void)//·¢ËÍ¹Ø½ÚÓ²¼şÀàĞÍÖ¡
 //	CanSendData[4] = (u8)(OD.SpeedKd>>8);
 //	CanSendData[5] = (u8)(OD.SpeedKd>>0);
 
-//	can_send(6, CanSendData, 8);//·¢ËÍËÙ¶ÈPIDÖ¡
+//	can_send(6, CanSendData, 8);//å‘é€é€Ÿåº¦PIDå¸§
 //}
 
-//void position_pid_send(void)//·¢ËÍÎ»ÖÃPIDÖ¡
+//void position_pid_send(void)//å‘é€ä½ç½®PIDå¸§
 //{
-//	u8 CanSendData[8] = { 0x00,0x00,0x00,0x00,0x00,0x00,0x00 };//»º³åÇøÉùÃ÷
+//	u8 CanSendData[8] = { 0x00,0x00,0x00,0x00,0x00,0x00,0x00 };//ç¼“å†²åŒºå£°æ˜
 
 //	STMFLASH_Read(0X08070000,&(OD.CanStdId),17);
 //	CanSendData[0] = (u8)(OD.PositionKp>>8);
@@ -799,7 +799,7 @@ void hardware_id_send(void)//·¢ËÍ¹Ø½ÚÓ²¼şÀàĞÍÖ¡
 //	CanSendData[4] = (u8)(OD.PositionKd>>8);
 //	CanSendData[5] = (u8)(OD.PositionKd>>0);
 
-//	can_send(7, CanSendData, 8);//·¢ËÍÎ»ÖÃPIDÖ¡
+//	can_send(7, CanSendData, 8);//å‘é€ä½ç½®PIDå¸§
 //}
 
 void can_monitor_send()

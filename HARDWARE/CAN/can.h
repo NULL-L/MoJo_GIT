@@ -1,25 +1,25 @@
-#ifndef __CAN_H
+ï»¿#ifndef __CAN_H
 #define __CAN_H	 
 #include "main.h"	    
 //////////////////////////////////////////////////////////////////////////////////	 
 
-//CANÇı¶¯ ´úÂë	   
-//STM32F4¹¤³ÌÄ£°å-¿âº¯Êı°æ±¾
-//ÌÔ±¦µêÆÌ£ºhttp://mcudev.taobao.com										  
+//CANé©±åŠ¨ ä»£ç 	   
+//STM32F4å·¥ç¨‹æ¨¡æ¿-åº“å‡½æ•°ç‰ˆæœ¬
+//æ·˜å®åº—é“ºï¼šhttp://mcudev.taobao.com										  
 ////////////////////////////////////////////////////////////////////////////////// 	 
 
 	
-//CAN1½ÓÊÕRX0ÖĞ¶ÏÊ¹ÄÜ
-#define CAN1_RX0_INT_ENABLE	0		//0,²»Ê¹ÄÜ;1,Ê¹ÄÜ.								    
+//CAN1æ¥æ”¶RX0ä¸­æ–­ä½¿èƒ½
+#define CAN1_RX0_INT_ENABLE	0		//0,ä¸ä½¿èƒ½;1,ä½¿èƒ½.								    
 										 							 				    
-u8 CAN1_Mode_Init(u8 tsjw,u8 tbs2,u8 tbs1,u16 brp,u8 mode);//CAN³õÊ¼»¯
+u8 CAN1_Mode_Init(u8 tsjw,u8 tbs2,u8 tbs1,u16 brp,u8 mode);//CANåˆå§‹åŒ–
  
-u8 CAN1_Send_Msg(u8* msg,u8 len);						//·¢ËÍÊı¾İ
+u8 CAN1_Send_Msg(u8* msg,u8 len);						//å‘é€æ•°æ®
 
-u8 CAN1_Receive_Msg(u8 *buf);							//½ÓÊÕÊı¾İ
+u8 CAN1_Receive_Msg(u8 *buf);							//æ¥æ”¶æ•°æ®
 
 
-#define CAN_BAUD_NUM    18		//¿ÉÓÃÅäÖÃ²¨ÌØÂÊ¸öÊı
+#define CAN_BAUD_NUM    18		//å¯ç”¨é…ç½®æ³¢ç‰¹ç‡ä¸ªæ•°
 
 extern unsigned char CAN1_data[8];
 extern unsigned char can1_rec_flag;
@@ -38,12 +38,12 @@ void hardware_id_send(void);
 
 struct object_dictionary{
 		u16 CanStdId;				//00		
-		//u16 CanFilterIdHigh;		//01		¹ıÂËÆ÷±êÊ¶·ûµÄ¸ß16Î»Öµ
-		//u16 CanFilterIdLow;		//02		¹ıÂËÆ÷±êÊ¶·ûµÄµÍ16Î»Öµ
-		//u16 CanFilterMaskIdHigh;	//01		¹ıÂËÆ÷ÆÁ±Î±êÊ¶·ûµÄ¸ß16Î»Öµ
-		//u16 CanFilterMaskIdLow;	//02		¹ıÂËÆ÷ÆÁ±Î±êÊ¶·ûµÄµÍ16Î»Öµ
-		u8  CAN_BS1;				//01		Ê±¼ä¶Î1
-		u8  CAN_BS2;				//01		Ê±¼ä¶Î2
+		//u16 CanFilterIdHigh;		//01		è¿‡æ»¤å™¨æ ‡è¯†ç¬¦çš„é«˜16ä½å€¼
+		//u16 CanFilterIdLow;		//02		è¿‡æ»¤å™¨æ ‡è¯†ç¬¦çš„ä½16ä½å€¼
+		//u16 CanFilterMaskIdHigh;	//01		è¿‡æ»¤å™¨å±è”½æ ‡è¯†ç¬¦çš„é«˜16ä½å€¼
+		//u16 CanFilterMaskIdLow;	//02		è¿‡æ»¤å™¨å±è”½æ ‡è¯†ç¬¦çš„ä½16ä½å€¼
+		u8  CAN_BS1;				//01		æ—¶é—´æ®µ1
+		u8  CAN_BS2;				//01		æ—¶é—´æ®µ2
 		u16 SpeedKp;				//02
 		u16 SpeedKi;				//03
 		u16 SpeedKd;				//04

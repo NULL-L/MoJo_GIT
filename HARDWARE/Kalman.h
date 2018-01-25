@@ -1,9 +1,9 @@
-#ifndef __KALMAN_H
+ï»¿#ifndef __KALMAN_H
 #define	__KALMAN_H
 
 #include "main.h"
 
-void pos_spd_kalman_init(void); /* ¿¨¶ûÂüÂË²¨Æ÷³õÊ¼»¯ */
-void pos_spd_kalman_cycle(void);/* ¿¨¶ûÂüÂË²¨Æ÷Ñ­»·*/
+void pos_spd_kalman_init(void); /* å¡å°”æ›¼æ»¤æ³¢å™¨åˆå§‹åŒ– */
+void pos_spd_kalman_cycle(void);/* å¡å°”æ›¼æ»¤æ³¢å™¨å¾ªç¯*/
 	 
 #endif /* __KALMAN_H */

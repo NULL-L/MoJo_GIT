@@ -1,10 +1,10 @@
-#ifndef __SERVO_H
+ï»¿#ifndef __SERVO_H
 #define	__SERVO_H
 
 #include "main.h"
 
-void SERVO_Configuration(void);   /* µç»úÊä³ö³õÊ¼»¯ */
-void SERVO_DAC_Configuration(void);/* µç»úDACÊä³ö¶Ë¿Ú³õÊ¼»¯ */
+void SERVO_Configuration(void);   /* ç”µæœºè¾“å‡ºåˆå§‹åŒ– */
+void SERVO_DAC_Configuration(void);/* ç”µæœºDACè¾“å‡ºç«¯å£åˆå§‹åŒ– */
 void SERVO_ADC_Configuration(void);
 void speed_position_measure(void);
 u16 SERVO_Get_Adc(u8 ch);

@@ -1,10 +1,10 @@
-#include "main.h"
+ï»¿#include "main.h"
 
 /*
  * 
- * ÃèÊö  £º¿¨¶ûÂüÂË²¨²âËÙ
- * ÊäÈë  £ºÎŞ
- * Êä³ö  £ºÎŞ
+ * æè¿°  ï¼šå¡å°”æ›¼æ»¤æ³¢æµ‹é€Ÿ
+ * è¾“å…¥  ï¼šæ— 
+ * è¾“å‡º  ï¼šæ— 
  */
 
 extern float position_raw;
@@ -14,7 +14,7 @@ extern float position_actual;
 extern float speed_actual;
 extern float current_actual;
 
-//extern float sample_delta_ms;//=0.01;//0.0394;ĞŞ¸ÄmainÎÄ¼şÀïµÄÖµ
+//extern float sample_delta_ms;//=0.01;//0.0394;ä¿®æ”¹mainæ–‡ä»¶é‡Œçš„å€¼
 
 //const float Q=3.229820487531232e-17;
 //const float R=3.229820487531232e-16;

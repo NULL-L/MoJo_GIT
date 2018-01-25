@@ -1,12 +1,12 @@
-#include "main.h"
+ï»¿#include "main.h"
 /***********************************************************************
-º¯ÊıÃû³Æ£ºNVIC_Configuration(void)
-¹¦    ÄÜ£ºÍê³ÉÖĞ¶ÏÓÅÏÈ¼¶µÄÅäÖÃ
-ÊäÈë²ÎÊı£º
-Êä³ö²ÎÊı£º
-±àĞ´Ê±¼ä£º
-±à Ğ´ ÈË£º
-×¢    Òâ£º
+å‡½æ•°åç§°ï¼šNVIC_Configuration(void)
+åŠŸ    èƒ½ï¼šå®Œæˆä¸­æ–­ä¼˜å…ˆçº§çš„é…ç½®
+è¾“å…¥å‚æ•°ï¼š
+è¾“å‡ºå‚æ•°ï¼š
+ç¼–å†™æ—¶é—´ï¼š
+ç¼– å†™ äººï¼š
+æ³¨    æ„ï¼š
 ***********************************************************************/
 void NVIC_Configuration(void)
 {
@@ -30,7 +30,7 @@ void NVIC_Configuration(void)
 	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;
 	NVIC_Init(&NVIC_InitStructure);
 	
-	//±àÂëÆ÷
+	//ç¼–ç å™¨
 		NVIC_InitStructure.NVIC_IRQChannel = TIM5_IRQn;
 		NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;
 		NVIC_InitStructure.NVIC_IRQChannelSubPriority = 0;

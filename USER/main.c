@@ -1,12 +1,12 @@
 #include "main.h"
 
 
-//CANÍ¨ĞÅÊµÑé-¿âº¯Êı°æ±¾
-//STM32F4¹¤³ÌÄ£°å-¿âº¯Êı°æ±¾
-//ÌÔ±¦µêÆÌ£ºhttp://mcudev.taobao.com		
+//CANé€šä¿¡å®éªŒ-åº“å‡½æ•°ç‰ˆæœ¬
+//STM32F4å·¥ç¨‹æ¨¡æ¿-åº“å‡½æ•°ç‰ˆæœ¬
+//æ·˜å®åº—é“ºï¼šhttp://mcudev.taobao.com		
 
 
-u8 hardware_id[8]={0x23,0x83,0x03,0x53,0x73,0x63,0x83,0x77};//¹Ø½ÚÀàĞÍ±êÊ¶
+u8 hardware_id[8]={0x23,0x83,0x03,0x53,0x73,0x63,0x83,0x77};//å…³èŠ‚ç±»å‹æ ‡è¯†
 //18.0f
 
 
@@ -27,40 +27,40 @@ float position_Kd=6;//1000;
 
 
 float time_PID_delta_ms=	0.5;//0.0394;
-//const float sample_delta_ms=	0.1;//0.0394;//ĞŞ¸ÄkalmanÎÄ¼şÀïµÄÖµ
+//const float sample_delta_ms=	0.1;//0.0394;//ä¿®æ”¹kalmanæ–‡ä»¶é‡Œçš„å€¼
 float time_UpToDown_delta_ms=	1;
 
 
 
 int num_pos_PID_count=0;
-int num_spd_PID_count=0;//ËÙ¶È¿ØÖÆÖÜÆÚ¼ÆÊı
+int num_spd_PID_count=0;//é€Ÿåº¦æ§åˆ¶å‘¨æœŸè®¡æ•°
 int num_cur_PID_count=0;
 
-//Í¨ĞÅ´«ÊäĞÅºÅÉùÃ÷
-	//·¢ËÍÖµ
-u8 speed_send[2]={0x00,0x00};//ËÙ¶È2byte
+//é€šä¿¡ä¼ è¾“ä¿¡å·å£°æ˜
+	//å‘é€å€¼
+u8 speed_send[2]={0x00,0x00};//é€Ÿåº¦2byte
 u8 speed_send_sym=0;
-u8 position_send[3]={0x00,0x00,0x00};//Î»ÖÃ3byte
+u8 position_send[3]={0x00,0x00,0x00};//ä½ç½®3byte
 
-u8 temperature[2]={0x91,0x91};//ÎÂ¶È2byte
-u8 current[2]={0x19,0x91};//µçÁ÷2byte
+u8 temperature[2]={0x91,0x91};//æ¸©åº¦2byte
+u8 current[2]={0x19,0x91};//ç”µæµ2byte
 u8 current_send_sym=0;
 
 
-u8 acceleration_1[2]={0x91,0x12};//¼ÓËÙ¶È×Ü¹²6byte
+u8 acceleration_1[2]={0x91,0x12};//åŠ é€Ÿåº¦æ€»å…±6byte
 u8 acceleration_2[2]={0x91,0x41};
 u8 acceleration_3[2]={0x91,0x83};
 
-u8 angular_speed_1[2]={0x91,0x41};//½ÇËÙ¶È×Ü¹²6byte
+u8 angular_speed_1[2]={0x91,0x41};//è§’é€Ÿåº¦æ€»å…±6byte
 u8 angular_speed_2[2]={0x91,0x41};
 u8 angular_speed_3[2]={0x91,0x41};
 
-u8 rpy_angle_r[2]={0x91,0x41};//×ËÌ¬½ÇRPY×Ü¹²6byte
+u8 rpy_angle_r[2]={0x91,0x41};//å§¿æ€è§’RPYæ€»å…±6byte
 u8 rpy_angle_p[2]={0x91,0x41};
 u8 rpy_angle_y[2]={0x91,0x41};
 
 
-ADC_InitTypeDef ADC_InitStructure;      //ADC³õÊ¼»¯½á¹¹ÌåÉùÃ÷
+ADC_InitTypeDef ADC_InitStructure;      //ADCåˆå§‹åŒ–ç»“æ„ä½“å£°æ˜
 
 TIM_TimeBaseInitTypeDef TIM_TimeBaseStructure;
 TIM_OCInitTypeDef TIM_OCInitStructure;
@@ -76,7 +76,7 @@ float _position=0;
 float _speed=0;
 float _current=0;
 
-float speed_control[2]={0,0};//ËÙ¶ÈÖ¸Áî(µ±Ç°ºÍÉÏ´ÎµÄ)
+float speed_control[2]={0,0};//é€Ÿåº¦æŒ‡ä»¤(å½“å‰å’Œä¸Šæ¬¡çš„)
 float current_control[2]={0,0};
 float position_control[2]={0,0};
 
@@ -110,12 +110,12 @@ int main(void)
 	u8 res;	
 	u8 ctr_cnt=0;
 	int i_enc_cnt_1;
-	//NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);//ÉèÖÃÏµÍ³ÖĞ¶ÏÓÅÏÈ¼¶·Ö×é2
+	//NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);//è®¾ç½®ç³»ç»Ÿä¸­æ–­ä¼˜å…ˆçº§åˆ†ç»„2
 	NVIC_Configuration();
-	delay_init(168);    //³õÊ¼»¯ÑÓÊ±º¯Êı
-	uart_init(115200);	//³õÊ¼»¯´®¿Ú²¨ÌØÂÊÎª115200
+	delay_init(168);    //åˆå§‹åŒ–å»¶æ—¶å‡½æ•°
+	uart_init(115200);	//åˆå§‹åŒ–ä¸²å£æ³¢ç‰¹ç‡ä¸º115200
 	LED_GPIO_Config();
-	//CAN1_Mode_Init(CAN_SJW_1tq,CAN_BS2_6tq,CAN_BS1_7tq,6,CAN_Mode_LoopBack);//CAN³õÊ¼»¯»·»ØÄ£Ê½,²¨ÌØÂÊ500Kbps
+	//CAN1_Mode_Init(CAN_SJW_1tq,CAN_BS2_6tq,CAN_BS1_7tq,6,CAN_Mode_LoopBack);//CANåˆå§‹åŒ–ç¯å›æ¨¡å¼,æ³¢ç‰¹ç‡500Kbps
 	CAN1_Configuration();
 	ENC_Configuration();
 	pos_spd_kalman_init();
@@ -151,7 +151,7 @@ int main(void)
 //		ctr_cnt+=1;
 
 mode=0;
-while (mode==0)//Í£Ö¹×´Ì¬£¬
+while (mode==0)//åœæ­¢çŠ¶æ€ï¼Œ
 {
 	speed_position_measure();
 	Data_send();
@@ -163,7 +163,7 @@ while (mode==0)//Í£Ö¹×´Ì¬£¬
 	
 }
 
-if (mode==1)//Î»ÖÃ¿ØÖÆ
+if (mode==1)//ä½ç½®æ§åˆ¶
 {
 	while(num_pos_PID_count<100)
 	{
