@@ -1,4 +1,4 @@
-﻿#ifndef __LED_H
+#ifndef __LED_H
 #define	__LED_H
 
 #include "main.h"
@@ -13,4 +13,4 @@
 
 void LED_GPIO_Config(void);   /* LED 端口初始化 */
 
-#endif /* __LED_H */
+#endif /* __LED_H  */
