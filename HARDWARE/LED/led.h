@@ -1,16 +1,16 @@
-#ifndef __LED_H
+ï»¿#ifndef __LED_H
 #define	__LED_H
 
 #include "main.h"
 
-#define LED1_OFF GPIO_SetBits(GPIOF,GPIO_Pin_9);    //PF9Êä³ö¸ßµçÆ½
-#define LED1_ON GPIO_ResetBits(GPIOF,GPIO_Pin_9);   //PF9Êä³öµÍµçÆ½
+#define LED1_OFF GPIO_SetBits(GPIOF,GPIO_Pin_9);    //PF9è¾“å‡ºé«˜ç”µå¹³
+#define LED1_ON GPIO_ResetBits(GPIOF,GPIO_Pin_9);   //PF9è¾“å‡ºä½ç”µå¹³
 #define LED1_NEG GPIO_WriteBit(GPIOF, GPIO_Pin_9, (BitAction)(1 - GPIO_ReadOutputDataBit(GPIOF, GPIO_Pin_9)));
 
-#define LED2_OFF GPIO_SetBits(GPIOF,GPIO_Pin_10);    //PF10Êä³ö¸ßµçÆ½
-#define LED2_ON GPIO_ResetBits(GPIOF,GPIO_Pin_10);   //PF10Êä³öµÍµçÆ½
+#define LED2_OFF GPIO_SetBits(GPIOF,GPIO_Pin_10);    //PF10è¾“å‡ºé«˜ç”µå¹³
+#define LED2_ON GPIO_ResetBits(GPIOF,GPIO_Pin_10);   //PF10è¾“å‡ºä½ç”µå¹³
 #define LED2_NEG GPIO_WriteBit(GPIOF, GPIO_Pin_10, (BitAction)(1 - GPIO_ReadOutputDataBit(GPIOF, GPIO_Pin_10)));
 
-void LED_GPIO_Config(void);   /* LED ¶Ë¿Ú³õÊ¼»¯ */
+void LED_GPIO_Config(void);   /* LED ç«¯å£åˆå§‹åŒ– */
 
 #endif /* __LED_H */

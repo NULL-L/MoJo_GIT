@@ -1,16 +1,16 @@
-#ifndef __SPI_H
+ï»¿#ifndef __SPI_H
 #define __SPI_H
 #include "sys.h"
 //////////////////////////////////////////////////////////////////////////////////	 
 
-//SPI Çı¶¯´úÂë	   
-//STM32F4¹¤³ÌÄ£°å-¿âº¯Êı°æ±¾
-//ÌÔ±¦µêÆÌ£ºhttp://mcudev.taobao.com									  
+//SPI é©±åŠ¨ä»£ç 	   
+//STM32F4å·¥ç¨‹æ¨¡æ¿-åº“å‡½æ•°ç‰ˆæœ¬
+//æ·˜å®åº—é“ºï¼šhttp://mcudev.taobao.com									  
 ////////////////////////////////////////////////////////////////////////////////// 	
  	    													  
-void SPI1_Init(void);			 //³õÊ¼»¯SPI1¿Ú
-void SPI1_SetSpeed(u8 SpeedSet); //ÉèÖÃSPI1ËÙ¶È   
-u8 SPI1_ReadWriteByte(u8 TxData);//SPI1×ÜÏß¶ÁĞ´Ò»¸ö×Ö½Ú
+void SPI1_Init(void);			 //åˆå§‹åŒ–SPI1å£
+void SPI1_SetSpeed(u8 SpeedSet); //è®¾ç½®SPI1é€Ÿåº¦   
+u8 SPI1_ReadWriteByte(u8 TxData);//SPI1æ€»çº¿è¯»å†™ä¸€ä¸ªå­—èŠ‚
 		 
 #endif
 
