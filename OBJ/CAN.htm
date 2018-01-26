@@ -3,7 +3,7 @@
 <title>Static Call Graph - [..\OBJ\CAN.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image ..\OBJ\CAN.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Thu Jan 25 17:20:01 2018
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5060422: Last Updated: Fri Jan 26 19:27:37 2018
 <BR><P>
 <H3>Maximum Stack Usage =        132 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -377,7 +377,7 @@ Global Symbols
 <LI><a href="#[88]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;GPIO_Init
 </UL>
 
-<P><STRONG><a name="[20]"></a>CAN1_RX0_IRQHandler</STRONG> (Thumb, 1092 bytes, Stack size 72 bytes, can.o(.text))
+<P><STRONG><a name="[20]"></a>CAN1_RX0_IRQHandler</STRONG> (Thumb, 1128 bytes, Stack size 72 bytes, can.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 132<LI>Call Chain = CAN1_RX0_IRQHandler &rArr; CAN1_Configuration &rArr; GPIO_PinAFConfig
 </UL>
 <BR>[Calls]<UL><LI><a href="#[92]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Receive
@@ -417,7 +417,7 @@ Global Symbols
 <BR><BR>[Calls]<UL><LI><a href="#[97]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;CAN_Transmit
 </UL>
 
-<P><STRONG><a name="[9b]"></a>position_speed_send</STRONG> (Thumb, 116 bytes, Stack size 16 bytes, can.o(.text))
+<P><STRONG><a name="[9b]"></a>position_speed_send</STRONG> (Thumb, 136 bytes, Stack size 16 bytes, can.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = position_speed_send &rArr; can_send &rArr; CAN_Transmit
 </UL>
 <BR>[Calls]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;can_send
@@ -432,7 +432,7 @@ Global Symbols
 <BR>[Called By]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;can_monitor_send
 </UL>
 
-<P><STRONG><a name="[9d]"></a>acceleration_send</STRONG> (Thumb, 188 bytes, Stack size 16 bytes, can.o(.text), UNUSED)
+<P><STRONG><a name="[9d]"></a>acceleration_send</STRONG> (Thumb, 192 bytes, Stack size 16 bytes, can.o(.text), UNUSED)
 <BR><BR>[Calls]<UL><LI><a href="#[98]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;can_send
 </UL>
 <BR>[Called By]<UL><LI><a href="#[a0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;can_monitor_send
@@ -469,7 +469,7 @@ Global Symbols
 <LI><a href="#[7e]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;delay_us
 </UL>
 
-<P><STRONG><a name="[7c]"></a>Data_send</STRONG> (Thumb, 390 bytes, Stack size 40 bytes, can.o(.text))
+<P><STRONG><a name="[7c]"></a>Data_send</STRONG> (Thumb, 420 bytes, Stack size 40 bytes, can.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 104<LI>Call Chain = Data_send &rArr; position_speed_send &rArr; can_send &rArr; CAN_Transmit
 </UL>
 <BR>[Calls]<UL><LI><a href="#[9b]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;position_speed_send

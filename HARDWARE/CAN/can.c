@@ -1,4 +1,4 @@
-﻿#include "can.h"
+#include "can.h"
 #include "led.h"
 #include "delay.h"
 #include "usart.h"
@@ -17,7 +17,7 @@ u16 CanFilterMaskIdLow =			0x0000;//	过滤器屏蔽标识符的低16位值
 extern	u8 speed_send[2];//速度2byte
 extern	u8 speed_send_sym;
 extern	u8 position_send[3];//位置3byte
-
+extern	u8 position_send_sym;
 extern	u8 temperature[2];//温度2byte
 extern	u8 current[2];//电流2byte
 extern	u8 current_send_sym;
@@ -336,12 +336,25 @@ if ((u8)(RxMessage.StdId >> 7) == 11)//SDO
 			float temp_current;
 
 
-			mode = 1;
+			
 
+				sign = sign & 0x00;
+			if (!(0x01 & ((unsigned int)RxMessage.Data[0] >> 2))) {
+				flag = 1;
+			}
+			else {
+				flag = -1;
+			}
+			
+			_position = (float)int_position*(float)flag*PI/180000.0;
+			
 			int_position = int_position & 0x00000000;
 			int_position = int_position | (0x00ff0000 & ((unsigned int)RxMessage.Data[1] << 16));
 			int_position = int_position | (0x0000ff00 & ((unsigned int)RxMessage.Data[2] << 8));
 			int_position = int_position | (0x000000ff & ((unsigned int)RxMessage.Data[3] << 0));
+
+
+
 
 			sign = sign & 0x00;
 			if (!(0x01 & ((unsigned int)RxMessage.Data[0] >> 0))) {
@@ -359,9 +372,9 @@ if ((u8)(RxMessage.StdId >> 7) == 11)//SDO
 //			int_current = int_current & 0x0000;
 //			int_current = int_current | (0xff00 & ((unsigned int)RxMessage.Data[6] << 8));
 //			int_current = int_current | (0x00ff & ((unsigned int)RxMessage.Data[7] << 0));
-
-			_position = (float)int_position *PI/180000.0;
-			_speed = (float)int_speed*(float)flag *PI/36000.0;
+_speed = (float)int_speed*(float)flag *PI/36000.0;
+			
+			
 			//_current = (float)int_current *5/65535;
 
 //			speed_control[0]=speed_control[1];
@@ -394,7 +407,7 @@ if ((u8)(RxMessage.StdId >> 7) == 11)//SDO
 //			coeff[1]=3*(speed_control[1]-speed_control[0])/time_change/time_change;
 //			coeff[2]=speed_control[0];
 			num_pos_PID_count=0;
-
+mode = 1;
 			//time_change_count=0;
 			
 			
@@ -437,7 +450,7 @@ if ((u8)(RxMessage.StdId >> 7) == 11)//SDO
 			float  flag;
 			float temp_speed;
 
-			mode = 2;
+			
 			
 
 			//sign = sign & 0x00;
@@ -467,7 +480,9 @@ if ((u8)(RxMessage.StdId >> 7) == 11)//SDO
 			speed_coeff[0]=2*(speed_control[0]-speed_control[1])/time_UpToDown_delta_ms/time_UpToDown_delta_ms/time_UpToDown_delta_ms;
 			speed_coeff[1]=3*(speed_control[1]-speed_control[0])/time_UpToDown_delta_ms/time_UpToDown_delta_ms;
 			speed_coeff[2]=speed_control[0];
+			
 			num_spd_PID_count=0;
+mode = 2;
 
 		}		
 		else if (_mode == 3) {
@@ -522,7 +537,7 @@ if ((u8)(RxMessage.StdId >> 7) == 11)//SDO
 			float  flag;
 			float temp_current;
 			
-			mode=6;
+			
 			
 			if ( !(0x01 & ((unsigned int)RxMessage.Data[0] >> 1))) {
 				flag = 1;
@@ -559,6 +574,7 @@ if ((u8)(RxMessage.StdId >> 7) == 11)//SDO
 			
 			/////////////////////////////////////
 			num_cur_PID_count=0;
+			mode=6;
 			/////////////////////////////////////
 			
 			
@@ -682,6 +698,10 @@ void position_speed_send(void)//发送运动状态帧
 	CanSendData[5] = speed_send[1];
 	CanSendData[6] = current[0];//电流
 	CanSendData[7] = current[1];
+		if(position_send_sym>0)
+	{
+		CanSendData[0]=CanSendData[0]|0x04;
+	}
 	
 	if(speed_send_sym>0)
 	{
@@ -836,6 +856,11 @@ void Data_send()
 	
 	
 	
+	
+		if (position_actual>=0.000f)
+	{speed_send_sym=0;}
+	else
+	{	speed_send_sym=1;	}
 	
 	if (speed_actual>=0)
 		{speed_send_sym=0;}

@@ -41,7 +41,7 @@ int num_cur_PID_count=0;
 u8 speed_send[2]={0x00,0x00};//速度2byte
 u8 speed_send_sym=0;
 u8 position_send[3]={0x00,0x00,0x00};//位置3byte
-
+u8 position_send_sym=0;
 u8 temperature[2]={0x91,0x91};//温度2byte
 u8 current[2]={0x19,0x91};//电流2byte
 u8 current_send_sym=0;
