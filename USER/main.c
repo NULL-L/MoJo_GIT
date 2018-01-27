@@ -10,20 +10,18 @@ u8 hardware_id[8]={0x23,0x83,0x03,0x53,0x73,0x63,0x83,0x77};//关节类型标识
 //18.0f
 
 
-
-
-float current_Kp=0.04;
+float current_Kp=0.05;
 float current_Ki=0.001;//0.0001
-float current_Kd=0.3/time_current_PID_delta_ms;//0.0005
+float current_Kd=0;//.3/time_current_PID_delta_ms;//0.0005
 
-float speed_Kp=0.005;
+float speed_Kp=0.006;
 float speed_Ki=0.0001;//0.00001;
-float speed_Kd=0.1/time_speed_PID_delta_ms;//0.5;
+float speed_Kd=0.3/time_speed_PID_delta_ms;//0.5;
 
 
-float position_Kp=0.0001;//1000;
-float position_Ki=0.0001;
-float position_Kd=6;//1000;
+float position_Kp=0.0005;//1000;
+float position_Ki=0.00001;
+float position_Kd=3.0/time_speed_PID_delta_ms;//1000;
 
 
 float time_PID_delta_ms=	0.5;//0.0394;
@@ -165,10 +163,10 @@ while (mode==0)//停止状态，
 
 if (mode==1)//位置控制
 {
-	while(num_pos_PID_count<100)
+	while(num_pos_PID_count<500)
 	{
 	//Current_DAC_Out(_current);	
-	Current_DAC_Out(PID_control_current(PID_control_speed(PID_control_position(_position))));
+	Current_DAC_Out((PID_control_speed(PID_control_position(_position))));
 	speed_position_measure();
 	Data_send();
 delay_us(1000.0*time_position_PID_delta_ms);
@@ -190,9 +188,12 @@ if (mode==2)//speed control
 while(num_spd_PID_count<100)
 	{
 	//Current_DAC_Out(_current);	
-	Current_DAC_Out(PID_control_current(PID_control_speed(_speed)));
+	Current_DAC_Out((PID_control_speed(_speed)));
 	speed_position_measure();
+		if(num_spd_PID_count%10==0)
+		{
 	Data_send();
+		}
 delay_us(1000.0*time_speed_PID_delta_ms);
 		//delay_ms(100.0);
 	num_spd_PID_count++;

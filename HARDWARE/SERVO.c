@@ -1,4 +1,4 @@
-﻿#include "servo.h"
+#include "servo.h"
 
 /*
  * 
@@ -205,7 +205,7 @@ float position_bias[12]={0,0,0,0,0,0,0,0,0,0,0,0};
  int ENC_CNT_MAX=0xFFFF;
  float delta_pos=0;
  
- float original_absolute_position=PI;
+ float original_absolute_position=0.0;
  float speed_raw=0;
  float position_raw=0;
  float delta_count_tmp=0;

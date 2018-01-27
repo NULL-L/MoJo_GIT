@@ -1,4 +1,4 @@
-﻿#include "main.h"
+#include "main.h"
 
 /*
  * 
@@ -67,10 +67,10 @@ extern float current_actual;
 // const float Q=3.229820487531232e-17;
 //const float R=3.229820487531232e-16;
 
-const float Q_value=1.291928195012493e-15;
+const float Q_value=1.291928195012493e-16;
 const float R_value=1.291928195012493e-15;
 
-const float Current_Q_value=2.441406250000000e-05;
+const float Current_Q_value=4.882812500000000e-05;
 const float Current_R_value=0.002441406250000;
 
 
@@ -90,7 +90,7 @@ float32_t Pkk_init[4] ={  1.0, 0.0 ,0.0, 1.0 };
 float32_t zeros_2_init[2] ={  0.0, 0.0};
 float32_t xk__init[2] ={  0.0, 0.0};
 float32_t xk_init[2] ={  0.0, 0.0};
-float32_t K_init[2] ={0.638299059680750,0.601415779905424};
+float32_t K_init[2] ={0.323296068529646,0.260135336213740};
 float32_t xkk_init[2] ={  0.0, 0.0};
 
 float32_t temp_1x1_0_init[1] ={0.0};
@@ -222,7 +222,7 @@ float current_A=1.0;
 float current_xkk=0;
 float current_zk=0;
 float current_xk=0;
-float current_K=0.095124921972504;
+const float current_K=0.131774468787578;
 float current_H=1.0;
 
 void pos_spd_kalman_cycle()

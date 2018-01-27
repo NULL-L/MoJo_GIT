@@ -157,7 +157,7 @@ void TIM5_IRQHandler(void)
 	{
 		TIM5->SR&=~(1<<0);//??????? )
 		
-		if ((TIM5->CNT)>(ENC_CNT_MAX-100))
+		if ((TIM5->CNT)==(ENC_CNT_MAX))
 		{
 //			if (GPIO_ReadOutputDataBit(GPIOA,GPIO_Pin_6)==1 & GPIO_ReadOutputDataBit(GPIOA,GPIO_Pin_7)==0)
 //			{
@@ -172,7 +172,7 @@ void TIM5_IRQHandler(void)
 		
 		else
 		{	
-			if (TIM5->CNT<(0x0000+100))
+			if (TIM5->CNT==(0x0000))
 			{
 //				if (GPIO_ReadOutputDataBit(GPIOA,GPIO_Pin_7)==1 & GPIO_ReadOutputDataBit(GPIOA,GPIO_Pin_6)==0)
 //					TIM4->CNT=65535;

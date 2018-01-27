@@ -346,14 +346,13 @@ if ((u8)(RxMessage.StdId >> 7) == 11)//SDO
 				flag = -1;
 			}
 			
-			_position = (float)int_position*(float)flag*PI/180000.0;
 			
 			int_position = int_position & 0x00000000;
 			int_position = int_position | (0x00ff0000 & ((unsigned int)RxMessage.Data[1] << 16));
 			int_position = int_position | (0x0000ff00 & ((unsigned int)RxMessage.Data[2] << 8));
 			int_position = int_position | (0x000000ff & ((unsigned int)RxMessage.Data[3] << 0));
 
-
+_position = (float)int_position*(float)flag*PI/180000.0;
 
 
 			sign = sign & 0x00;
@@ -850,17 +849,17 @@ void Data_send()
 //	position_send[2] = (u8)((0x000000ff & (u32)((float)position_actual*(float)180000.0/(float)PI)));
 
 
-	position_send[0] = (u8)((0x00ff0000 & (u32)((float)position_actual*(float)180000.0/(float)PI)) >>16);
-	position_send[1] = (u8)((0x0000ff00 & (u32)((float)position_actual*(float)180000.0/(float)PI)) >>8);
-	position_send[2] = (u8)((0x000000ff & (u32)((float)position_actual*(float)180000.0/(float)PI)));
+	position_send[0] = (u8)((0x00ff0000 & (u32)(fabs((float)position_actual)*(float)180000.0/(float)PI)) >>16);
+	position_send[1] = (u8)((0x0000ff00 & (u32)(fabs((float)position_actual)*(float)180000.0/(float)PI)) >>8);
+	position_send[2] = (u8)((0x000000ff & (u32)(fabs((float)position_actual)*(float)180000.0/(float)PI)));
 	
 	
 	
 	
 		if (position_actual>=0.000f)
-	{speed_send_sym=0;}
+	{position_send_sym=0;}
 	else
-	{	speed_send_sym=1;	}
+	{	position_send_sym=1;	}
 	
 	if (speed_actual>=0)
 		{speed_send_sym=0;}
