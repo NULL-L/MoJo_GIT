@@ -5,6 +5,7 @@
 //STM32F4工程模板-库函数版本
 //淘宝店铺：http://mcudev.taobao.com		
 
+float test_encoder_overflow_count=0;
 
 u8 hardware_id[8]={0x23,0x83,0x03,0x53,0x73,0x63,0x83,0x77};//关节类型标识
 //18.0f
@@ -81,7 +82,7 @@ float position_control[2]={0,0};
 float pos_coeff[4]={0,0,0,0};
 float speed_coeff[3]={0,0,0};
 
-
+float encoder_overflow_count=0;
 
 struct object_dictionary	OD;
 u8  mode;
@@ -107,6 +108,7 @@ int main(void)
 	u8 canbuf[8];
 	u8 res;	
 	u8 ctr_cnt=0;
+	encoder_overflow_count=0;
 	int i_enc_cnt_1;
 	//NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);//设置系统中断优先级分组2
 	NVIC_Configuration();
@@ -148,7 +150,7 @@ int main(void)
 //		}
 //		ctr_cnt+=1;
 
-mode=0;
+mode=4;
 while (mode==0)//停止状态，
 {
 	speed_position_measure();
@@ -215,7 +217,7 @@ if (mode==3)
 }
 if (mode==4)
 {
-	Current_DAC_Out(PID_control_current(PID_control_speed(0.5)));
+	Current_DAC_Out((PID_control_speed(0.75)));
 	speed_position_measure();
 	Data_send();
 delay_us(1000.0*time_speed_PID_delta_ms);

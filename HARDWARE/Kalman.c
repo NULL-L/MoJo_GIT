@@ -67,7 +67,7 @@ extern float current_actual;
 // const float Q=3.229820487531232e-17;
 //const float R=3.229820487531232e-16;
 
-const float Q_value=1.291928195012493e-16;
+const float Q_value=2.583856390024986e-17;
 const float R_value=1.291928195012493e-15;
 
 const float Current_Q_value=4.882812500000000e-05;
@@ -90,7 +90,7 @@ float32_t Pkk_init[4] ={  1.0, 0.0 ,0.0, 1.0 };
 float32_t zeros_2_init[2] ={  0.0, 0.0};
 float32_t xk__init[2] ={  0.0, 0.0};
 float32_t xk_init[2] ={  0.0, 0.0};
-float32_t K_init[2] ={0.323296068529646,0.260135336213740};
+float32_t K_init[2] ={0.193541695904421,0.127000653864110};
 float32_t xkk_init[2] ={  0.0, 0.0};
 
 float32_t temp_1x1_0_init[1] ={0.0};
@@ -286,5 +286,5 @@ current_actual=current_xk;
 speed_actual=xk.pData[1]*1000.0;
 //    speed(j)=xk(2);
 
-if(status==ARM_MATH_SIZE_MISMATCH){	while(1);}
+//if(status==ARM_MATH_SIZE_MISMATCH){	while(1);}
 }

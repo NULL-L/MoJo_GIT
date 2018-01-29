@@ -118,7 +118,6 @@
         <SetRegEntry>
           <Number>0</Number>
           <Key>DLGUARM</Key>
-          <Name>鲤O</Name>
         </SetRegEntry>
         <SetRegEntry>
           <Number>0</Number>
@@ -171,7 +170,7 @@
         <Ww>
           <count>4</count>
           <WinNumber>1</WinNumber>
-          <ItemText>delta_count_tmp</ItemText>
+          <ItemText>test_encoder_overflow_count</ItemText>
         </Ww>
         <Ww>
           <count>5</count>

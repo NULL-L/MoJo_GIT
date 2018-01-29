@@ -201,8 +201,8 @@ float position_bias[12]={0,0,0,0,0,0,0,0,0,0,0,0};
  int i_enc_cnt;
  float pos_count_last[24]={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
  float pos_before[24]={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
- float encoder_overflow_count=0;
- int ENC_CNT_MAX=0xFFFF;
+extern float encoder_overflow_count;
+ const int ENC_CNT_MAX=0xFFFF;
  float delta_pos=0;
  
  float original_absolute_position=0.0;

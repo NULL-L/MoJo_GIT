@@ -59,7 +59,7 @@ extern float speed_coeff[3];//曲线插值系数
 extern float time_PID_delta_ms;//PID周期
 extern float time_UpToDown_delta_ms;//控制命令周期
 
-
+extern float position_raw;
 
 extern struct object_dictionary OD;
 extern	u8  mode;
@@ -843,12 +843,13 @@ void can_monitor_send()
 void Data_send()
 {	
 	u16 current_measure_1=0;
-	//Get_Adc();
-//	position_send[0] = (u8)((0x00ff0000 & (u32)((float)position_actual*(float)180000.0/(float)PI)) >>16);
-//	position_send[1] = (u8)((0x0000ff00 & (u32)((float)position_actual*(float)180000.0/(float)PI)) >>8);
-//	position_send[2] = (u8)((0x000000ff & (u32)((float)position_actual*(float)180000.0/(float)PI)));
 
 
+
+//		position_send[0] = (u8)((0x00ff0000 & (u32)(fabs((float)position_raw)*(float)180000.0/(float)PI)) >>16);
+//	position_send[1] = (u8)((0x0000ff00 & (u32)(fabs((float)position_raw)*(float)180000.0/(float)PI)) >>8);
+//	position_send[2] = (u8)((0x000000ff & (u32)(fabs((float)position_raw)*(float)180000.0/(float)PI)));
+	
 	position_send[0] = (u8)((0x00ff0000 & (u32)(fabs((float)position_actual)*(float)180000.0/(float)PI)) >>16);
 	position_send[1] = (u8)((0x0000ff00 & (u32)(fabs((float)position_actual)*(float)180000.0/(float)PI)) >>8);
 	position_send[2] = (u8)((0x000000ff & (u32)(fabs((float)position_actual)*(float)180000.0/(float)PI)));

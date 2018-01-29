@@ -144,46 +144,80 @@ void SysTick_Handler(void)
  
 }
 
-int my_tim4_test=0;
+int my_tim5_test=0;
 extern float encoder_overflow_count;
+extern float test_encoder_overflow_count;
 extern int ENC_CNT_MAX;
+
 void TIM5_IRQHandler(void)
 {
-	//my_tim4_test++;
+	
 	//TIM4->CNT++;
 	
 	//my_tim4_test=TIM4->CNT;
-	if(TIM5->SR&0x0001)//????
+	if( TIM_GetITStatus(TIM5,TIM_IT_Update)==SET )//????
 	{
-		TIM5->SR&=~(1<<0);//??????? )
+		TIM_ClearITPendingBit(TIM5,TIM_IT_Update); 
 		
-		if ((TIM5->CNT)==(ENC_CNT_MAX))
+		if ((TIM5->CNT)>(0x08000))
 		{
-//			if (GPIO_ReadOutputDataBit(GPIOA,GPIO_Pin_6)==1 & GPIO_ReadOutputDataBit(GPIOA,GPIO_Pin_7)==0)
-//			{
-//				TIM4->CNT = 0;
-//				encorder
-//			}
-//			else
-//				TIM4->CNT=65535;
-			//TIM4->CNT = 0;
-			encoder_overflow_count-=1;
+
+			encoder_overflow_count--;
+			test_encoder_overflow_count--;
 		}
 		
 		else
 		{	
-			if (TIM5->CNT==(0x0000))
+			if (TIM5->CNT<(0x08000))
 			{
-//				if (GPIO_ReadOutputDataBit(GPIOA,GPIO_Pin_7)==1 & GPIO_ReadOutputDataBit(GPIOA,GPIO_Pin_6)==0)
-//					TIM4->CNT=65535;
-//				else
-//					TIM4->CNT=0;
-				//TIM4->CNT=65535;
-				encoder_overflow_count+=1;
+
+				encoder_overflow_count++;
+				test_encoder_overflow_count++;
 			}
 		}
 	}	
 }
+
+//void TIM5_IRQHandler(void)
+//{
+//	
+//	//TIM4->CNT++;
+//	
+//	//my_tim4_test=TIM4->CNT;
+//	if(TIM5->SR&0x0001)//????
+//	{
+//		TIM5->SR&=~(1<<0);//??????? )
+//		//my_tim5_test++;
+//		
+//		if ((TIM5->CNT)>(0x0FF00))
+//		{
+////			if (GPIO_ReadOutputDataBit(GPIOA,GPIO_Pin_6)==1 & GPIO_ReadOutputDataBit(GPIOA,GPIO_Pin_7)==0)
+////			{
+////				TIM4->CNT = 0;
+////				encorder
+////			}
+////			else
+////				TIM4->CNT=65535;
+//			//TIM4->CNT = 0;
+//			encoder_overflow_count--;
+//			//test_encoder_overflow_count--;
+//		}
+//		
+//		else
+//		{	
+//			if (TIM5->CNT<(0x00FF))
+//			{
+////				if (GPIO_ReadOutputDataBit(GPIOA,GPIO_Pin_7)==1 & GPIO_ReadOutputDataBit(GPIOA,GPIO_Pin_6)==0)
+////					TIM4->CNT=65535;
+////				else
+////					TIM4->CNT=0;
+//				//TIM4->CNT=65535;
+//				encoder_overflow_count++;
+//				//test_encoder_overflow_count++;
+//			}
+//		}
+//	}	
+//}
 
 
 /******************************************************************************/
