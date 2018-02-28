@@ -351,9 +351,10 @@ if ((u8)(RxMessage.StdId >> 7) == 11)//SDO
 			int_position = int_position | (0x00ff0000 & ((unsigned int)RxMessage.Data[1] << 16));
 			int_position = int_position | (0x0000ff00 & ((unsigned int)RxMessage.Data[2] << 8));
 			int_position = int_position | (0x000000ff & ((unsigned int)RxMessage.Data[3] << 0));
-
+if(_position != (float)int_position*(float)flag*PI/180000.0)
+{
 _position = (float)int_position*(float)flag*PI/180000.0;
-
+}
 
 			sign = sign & 0x00;
 			if (!(0x01 & ((unsigned int)RxMessage.Data[0] >> 0))) {
@@ -371,8 +372,10 @@ _position = (float)int_position*(float)flag*PI/180000.0;
 //			int_current = int_current & 0x0000;
 //			int_current = int_current | (0xff00 & ((unsigned int)RxMessage.Data[6] << 8));
 //			int_current = int_current | (0x00ff & ((unsigned int)RxMessage.Data[7] << 0));
+if(_speed != (float)int_speed*(float)flag *PI/36000.0)
+{	
 _speed = (float)int_speed*(float)flag *PI/36000.0;
-			
+}		
 			
 			//_current = (float)int_current *5/65535;
 
@@ -466,9 +469,10 @@ mode = 1;
 			int_speed = int_speed | (0x00ff & ((unsigned int)RxMessage.Data[5] << 0));
 
 			
-			
+if(_speed != (float)int_speed*(float)flag *PI/36000.0)
+{				
 			_speed = (float)int_speed*(float)flag *PI/36000.0;
-			
+}		
 		//flag_speed = 1;
 		//	_speed_control_speed = temp_speed/0.06f;
 			speed_control[0]=speed_control[1];

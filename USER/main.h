@@ -27,20 +27,20 @@ DA1 PA2
 
 #define Current_ADC_Channel ((uint8_t)0x05)
 
-#define sample_delta_ms 1  //;//
+#define sample_delta_ms 1.0f  //;//
 //#define PI 3.14159265359
-#define line_num 500.0
-#define reduc_ratio 100.0
+#define line_num 500.0f
+#define reduc_ratio 100.0f
 #define max_speed			31.4159265359
-#define max_current		5.0
+#define max_current		5.0f
 #define frequency_ratio 2.0f
 #define speed_protect_ratio 5.0f
 #define current_protect_ratio 2.0f
 
 
-#define  time_position_PID_delta_ms	0.5
-#define  time_speed_PID_delta_ms	0.5
-#define  time_current_PID_delta_ms	0.5
+#define  time_position_PID_delta_ms	0.5f
+#define  time_speed_PID_delta_ms	0.5f
+#define  time_current_PID_delta_ms	0.5f
 
 //0.0394;
 
