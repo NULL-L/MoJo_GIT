@@ -24,6 +24,7 @@ DA1 PA2
 #include "Kalman.h"
 #include "arm_math.h"
 #include "stm32f4xx_adc.h"
+#include "stdlib.h"
 
 #define Current_ADC_Channel ((uint8_t)0x05)
 
@@ -31,16 +32,16 @@ DA1 PA2
 //#define PI 3.14159265359
 #define line_num 500.0f
 #define reduc_ratio 100.0f
-#define max_speed			31.4159265359
+#define max_speed			31.4159265359f
 #define max_current		5.0f
 #define frequency_ratio 2.0f
 #define speed_protect_ratio 5.0f
 #define current_protect_ratio 2.0f
 
 
-#define  time_position_PID_delta_ms	0.5f
-#define  time_speed_PID_delta_ms	0.5f
-#define  time_current_PID_delta_ms	0.5f
+#define  time_position_PID_delta_ms	1.0f
+#define  time_speed_PID_delta_ms	1.0f
+#define  time_current_PID_delta_ms	1.0f
 
 //0.0394;
 

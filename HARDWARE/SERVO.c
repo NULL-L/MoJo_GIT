@@ -245,7 +245,7 @@ extern float encoder_overflow_count;
 
  	delta_count_tmp=(1*pos_before[0]-1*pos_before[1]+1*pos_before[2]-pos_before[3]);
  	
-	speed_raw=(4*pos_before[0]-4*pos_before[1]+3*pos_before[2]-3*pos_before[3]+1*pos_before[4]-pos_before[5]+1*pos_before[6]-pos_before[7]/**/)/9.0/4.0/(sample_delta_ms/1000.0);
+	speed_raw=(4*pos_before[0]-4*pos_before[1]+3*pos_before[2]-3*pos_before[3]+1*pos_before[4]-pos_before[5]+1*pos_before[6]-pos_before[7]/**/)/9.0f/4.0f/(sample_delta_ms/1000.0f);
  	
 	//cnt6_overflow=0;
 	//TIM6->CNT = 0;

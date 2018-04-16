@@ -52,3 +52,4 @@
 ..\obj\can.o: C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.1.1\CMSIS\Include\core_cm4.h
 ..\obj\can.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
 ..\obj\can.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\math.h
+..\obj\can.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h

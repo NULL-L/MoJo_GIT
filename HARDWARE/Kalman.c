@@ -283,7 +283,7 @@ position_actual=xk.pData[0];//K.pData[0];//
 current_actual=current_xk;
 //    pos1(j)=xk(1);
 
-speed_actual=xk.pData[1]*1000.0;
+speed_actual=xk.pData[1]*1000.0f;
 //    speed(j)=xk(2);
 
 //if(status==ARM_MATH_SIZE_MISMATCH){	while(1);}

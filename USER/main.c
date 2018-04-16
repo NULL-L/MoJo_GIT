@@ -17,12 +17,12 @@ float current_Kd=0.0;//.3/time_current_PID_delta_ms;//0.0005
 
 float speed_Kp=0.006;
 float speed_Ki=0.0001;//0.00001;
-float speed_Kd=0.3/time_speed_PID_delta_ms;//0.5;
+float speed_Kd=0.3f/time_speed_PID_delta_ms;//0.5;
 
 
 float position_Kp=0.0005;//1000;
 float position_Ki=0.00001;
-float position_Kd=3.0/time_speed_PID_delta_ms;//1000;
+float position_Kd=3.0f/time_speed_PID_delta_ms;//1000;
 
 
 float time_PID_delta_ms=	0.5;//0.0394;
@@ -103,13 +103,13 @@ float pos_read_before[24]={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 int main(void)
 { 
 
-	u8 i=0,t=0;
-	u8 cnt=0;
-	u8 canbuf[8];
-	u8 res;	
-	u8 ctr_cnt=0;
-	encoder_overflow_count=0;
-	int i_enc_cnt_1;
+//	u8 i=0,t=0;
+//	u8 cnt=0;
+//	u8 canbuf[8];
+//	u8 res;	
+//	u8 ctr_cnt=0;
+//	encoder_overflow_count=0;
+//	int i_enc_cnt_1;
 	//NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);//设置系统中断优先级分组2
 	NVIC_Configuration();
 	delay_init(168);    //初始化延时函数
@@ -159,7 +159,7 @@ while (mode==0)//停止状态，
 	GPIO_ResetBits(GPIOA,GPIO_Pin_6);
 	GPIO_ResetBits(GPIOA,GPIO_Pin_7);
 	
-	delay_us(sample_delta_ms*1000.0);			
+	delay_us(sample_delta_ms*1000.0f);			
 	
 }
 
@@ -171,7 +171,7 @@ if (mode==1)//位置控制
 	Current_DAC_Out(PID_control_current(PID_control_speed(PID_control_position(_position))));
 	speed_position_measure();
 	Data_send();
-delay_us(1000.0*time_position_PID_delta_ms);
+delay_us(1000.0f*time_position_PID_delta_ms);
 		//delay_ms(100.0);
 	num_pos_PID_count++;
 
@@ -196,7 +196,7 @@ while(num_spd_PID_count<100)
 		{
 	Data_send();
 		}
-delay_us(1000.0*time_speed_PID_delta_ms);
+delay_us(1000.0f*time_speed_PID_delta_ms);
 		//delay_ms(100.0);
 	num_spd_PID_count++;
 
@@ -216,21 +216,21 @@ if (mode==3)
 		Current_DAC_Out(PID_control_current(PID_control_speed(PID_control_position(0.0))));
 	speed_position_measure();
 	Data_send();
-delay_us(1000.0*time_speed_PID_delta_ms);
+delay_us(1000.0f*time_speed_PID_delta_ms);
 }
 if (mode==4)
 {
 	Current_DAC_Out(PID_control_current(PID_control_speed(0.75)));
 	speed_position_measure();
 	Data_send();
-delay_us(1000.0*time_speed_PID_delta_ms);
+delay_us(1000.0f*time_speed_PID_delta_ms);
 }
 if (mode==5)
 {
 	speed_position_measure();
 	Data_send();
 	Current_DAC_Out(0.1);	
-	delay_us(sample_delta_ms*1000.0);
+	delay_us(sample_delta_ms*1000.0f);
 }
 if (mode==6)//current control
 {
@@ -240,7 +240,7 @@ if (mode==6)//current control
 	Current_DAC_Out(PID_control_current(_current));
 	speed_position_measure();
 	Data_send();
-delay_us(1000.0*time_current_PID_delta_ms);
+delay_us(1000.0f*time_current_PID_delta_ms);
 		//delay_ms(100.0);
 	num_cur_PID_count++;
 

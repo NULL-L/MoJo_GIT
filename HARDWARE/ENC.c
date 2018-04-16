@@ -51,3 +51,4 @@ void ENC_Configuration(void)
 	TIM_Cmd(TIM5, ENABLE);   //启动TIM4定时器
 	TIM_Cmd(TIM5, DISABLE);   //启动TIM4定时器
 }
+

@@ -1,4 +1,4 @@
-﻿#ifndef __SERVO_H
+#ifndef __SERVO_H
 #define	__SERVO_H
 
 #include "main.h"
@@ -9,8 +9,8 @@ void SERVO_ADC_Configuration(void);
 void speed_position_measure(void);
 u16 SERVO_Get_Adc(u8 ch);
 void Current_DAC_Out(float num);
-void clear_PID_buf();
-void speed_position_measure();
+void clear_PID_buf(void);
+void speed_position_measure(void);
 
 float PID_control_current(float current_to_follow);
 float PID_control_speed(float speed_to_follow);

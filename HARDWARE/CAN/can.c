@@ -1,7 +1,5 @@
 #include "can.h"
-#include "led.h"
-#include "delay.h"
-#include "usart.h"
+
 //////////////////////////////////////////////////////////////////////////////////	 
 
 u16 CanStdId = 0x01;
@@ -351,9 +349,9 @@ if ((u8)(RxMessage.StdId >> 7) == 11)//SDO
 			int_position = int_position | (0x00ff0000 & ((unsigned int)RxMessage.Data[1] << 16));
 			int_position = int_position | (0x0000ff00 & ((unsigned int)RxMessage.Data[2] << 8));
 			int_position = int_position | (0x000000ff & ((unsigned int)RxMessage.Data[3] << 0));
-if(_position != (float)int_position*(float)flag*PI/180000.0)
+if(_position != (float)int_position*(float)flag*PI/180000.0f)
 {
-_position = (float)int_position*(float)flag*PI/180000.0;
+_position = (float)int_position*(float)flag*PI/180000.0f;
 }
 
 			sign = sign & 0x00;
@@ -372,9 +370,9 @@ _position = (float)int_position*(float)flag*PI/180000.0;
 //			int_current = int_current & 0x0000;
 //			int_current = int_current | (0xff00 & ((unsigned int)RxMessage.Data[6] << 8));
 //			int_current = int_current | (0x00ff & ((unsigned int)RxMessage.Data[7] << 0));
-if(_speed != (float)int_speed*(float)flag *PI/36000.0)
+if(_speed != (float)int_speed*(float)flag *PI/36000.0f)
 {	
-_speed = (float)int_speed*(float)flag *PI/36000.0;
+_speed = (float)int_speed*(float)flag *PI/36000.0f;
 }		
 			
 			//_current = (float)int_current *5/65535;
@@ -469,9 +467,9 @@ mode = 1;
 			int_speed = int_speed | (0x00ff & ((unsigned int)RxMessage.Data[5] << 0));
 
 			
-if(_speed != (float)int_speed*(float)flag *PI/36000.0)
+if(_speed != (float)int_speed*(float)flag *PI/36000.0f)
 {				
-			_speed = (float)int_speed*(float)flag *PI/36000.0;
+			_speed = (float)int_speed*(float)flag *PI/36000.0f;
 }		
 		//flag_speed = 1;
 		//	_speed_control_speed = temp_speed/0.06f;
@@ -871,15 +869,15 @@ void Data_send()
 	else
 		{speed_send_sym=1;}
 	
-	speed_send[0] = (u8)((0xff00 & (u16)(abs((int)((float)speed_actual*36000.0/PI)))) >>8);
-	speed_send[1] = (u8)((0x00ff & (u16)(abs((int)((float)speed_actual*36000.0/PI)))));
+	speed_send[0] = (u8)((0xff00 & (u16)(abs((int)((float)speed_actual*36000.0f/PI)))) >>8);
+	speed_send[1] = (u8)((0x00ff & (u16)(abs((int)((float)speed_actual*36000.0f/PI)))));
 	
 	if (position_send[0]<7)
 	{
 		position_send[0]=position_send[0];
 	}
 	
-		current_measure_1=(u16)abs((int)(current_actual/5*65535));	
+		current_measure_1=(u16)abs((int)(current_actual/5.0f*65535));	
 	if (current_actual>=0.000f)
 	{current_send_sym=0;}
 	else
