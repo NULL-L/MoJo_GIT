@@ -29,7 +29,7 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_it.h"
- 
+#include "main.h"
 
 /** @addtogroup Template_Project
   * @{
@@ -145,9 +145,11 @@ void SysTick_Handler(void)
 }
 
 int my_tim5_test=0;
-extern float encoder_overflow_count;
+extern double encoder_overflow_count;
 extern float test_encoder_overflow_count;
-extern int ENC_CNT_MAX;
+//extern int ENC_CNT_MAX;
+int down_test_num=0;//0xffff
+int up_test_num=0;//0x0000
 
 void TIM5_IRQHandler(void)
 {
@@ -159,18 +161,20 @@ void TIM5_IRQHandler(void)
 	{
 		TIM_ClearITPendingBit(TIM5,TIM_IT_Update); 
 		
-		if ((TIM5->CNT)>(0x08000))
+		if ((TIM5->CNT)==(ENC_CNT_MAX))
 		{
-
+			down_test_num=TIM5->CNT;
+			//TIM5->CNT=0x0fffe;
 			encoder_overflow_count--;
 			test_encoder_overflow_count--;
 		}
 		
 		else
 		{	
-			if (TIM5->CNT<(0x08000))
+			if (TIM5->CNT==(0x00000))
 			{
-
+				up_test_num=TIM5->CNT;
+				//TIM5->CNT=0x00001;
 				encoder_overflow_count++;
 				test_encoder_overflow_count++;
 			}

@@ -5,10 +5,10 @@
 <h2>Tool Versions:</h2>
 IDE-Version: ¦ÌVision V5.23.0.0
 Copyright (C) 2017 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: NULL LI, SJTU, LIC=----
+License Information: NULL LI, SJTU, LIC=UB4Y8-35H63-MPSZP-M8TQY-TU5X9-LV4GN
  
 Tool Versions:
-Toolchain:       MDK-Lite  Version: 5.23
+Toolchain:       MDK-ARM Professional  Version: 5.23
 Toolchain Path:  C:\Keil_v5\ARM\ARMCC\Bin
 C Compiler:      Armcc.exe V5.06 update 4 (build 422)
 Assembler:       Armasm.exe V5.06 update 4 (build 422)
@@ -27,34 +27,26 @@ Project File Date:  01/15/2018
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 4 (build 422)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'CAN'
-compiling led.c...
-compiling main.c...
-compiling NVIC.C...
 compiling can.c...
-..\HARDWARE\CAN\can.c(295): warning:  #177-D: variable "data"  was declared but never referenced
+..\HARDWARE\CAN\can.c(299): warning:  #177-D: variable "data"  was declared but never referenced
   		u16 data=((u16)RxMessage.Data[4]<<8)|((u16)RxMessage.Data[5]<<0);
-..\HARDWARE\CAN\can.c(325): warning:  #177-D: variable "int_current"  was declared but never referenced
+..\HARDWARE\CAN\can.c(329): warning:  #177-D: variable "int_current"  was declared but never referenced
   			u16 int_current;
-..\HARDWARE\CAN\can.c(332): warning:  #177-D: variable "temp_position"  was declared but never referenced
+..\HARDWARE\CAN\can.c(336): warning:  #177-D: variable "temp_position"  was declared but never referenced
   			float temp_position;
-..\HARDWARE\CAN\can.c(333): warning:  #177-D: variable "temp_speed"  was declared but never referenced
+..\HARDWARE\CAN\can.c(337): warning:  #177-D: variable "temp_speed"  was declared but never referenced
   			float temp_speed;
-..\HARDWARE\CAN\can.c(334): warning:  #177-D: variable "temp_current"  was declared but never referenced
+..\HARDWARE\CAN\can.c(338): warning:  #177-D: variable "temp_current"  was declared but never referenced
   			float temp_current;
-..\HARDWARE\CAN\can.c(451): warning:  #177-D: variable "temp_speed"  was declared but never referenced
+..\HARDWARE\CAN\can.c(455): warning:  #177-D: variable "temp_speed"  was declared but never referenced
   			float temp_speed;
-..\HARDWARE\CAN\can.c(605): warning:  #550-D: variable "transmit_mailbox"  was set but never used
-  	uint8_t transmit_mailbox = 0;
-..\HARDWARE\CAN\can.c(670): warning:  #550-D: variable "transmit_mailbox"  was set but never used
+..\HARDWARE\CAN\can.c(674): warning:  #550-D: variable "transmit_mailbox"  was set but never used
   	uint8_t transmit_mailbox = 0;
 ..\HARDWARE\CAN\can.c: 8 warnings, 0 errors
-compiling Kalman.c...
-compiling ENC.c...
-compiling SERVO.c...
 linking...
-Program Size: Code=25644 RO-data=788 RW-data=980 ZI-data=2524  
+Program Size: Code=31232 RO-data=1072 RW-data=1012 ZI-data=2524  
 FromELF: creating hex file...
-"..\OBJ\CAN.axf" - 0 Error(s), 8 Warning(s).
+"..\OBJ\CAN.axf" - 0 Error(s), 7 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -72,7 +64,7 @@ Package Vendor: ARM
 <h2>Collection of Component Files used:</h2>
 
    * Component: ARM::CMSIS:CORE:5.0.2
-Build Time Elapsed:  00:00:03
+Build Time Elapsed:  00:00:02
 </pre>
 </body>
 </html>

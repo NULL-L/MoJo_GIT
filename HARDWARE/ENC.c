@@ -7,7 +7,7 @@
  * 输出  ：无
  */
  
-extern int ENC_CNT_MAX;
+//extern int ENC_CNT_MAX;
 void ENC_Configuration(void)
 {	
 

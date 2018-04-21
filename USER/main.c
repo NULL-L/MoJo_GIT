@@ -82,7 +82,7 @@ float position_control[2]={0,0};
 float pos_coeff[4]={0,0,0,0};
 float speed_coeff[3]={0,0,0};
 
-float encoder_overflow_count=0;
+double encoder_overflow_count=0;
 
 struct object_dictionary	OD;
 u8  mode;
@@ -99,16 +99,16 @@ int iii_t=0;
 float pos_read_before[24]={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
 
 
-
+int i=0,t=0,j=0;
 int main(void)
 { 
 
-//	u8 i=0,t=0;
+	
 //	u8 cnt=0;
 //	u8 canbuf[8];
 //	u8 res;	
 //	u8 ctr_cnt=0;
-//	encoder_overflow_count=0;
+	encoder_overflow_count=0;
 //	int i_enc_cnt_1;
 	//NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);//设置系统中断优先级分组2
 	NVIC_Configuration();
@@ -123,10 +123,11 @@ int main(void)
 	hardware_id_send();
 	SERVO_Configuration();
 	
-	mode=0;
+	mode=4;
 	while(1)
 	{
-		
+		hardware_id_send();
+		delay_us(sample_delta_ms*1000.0f);			
 //			//can1_tx(0x01,0x23);		
 //		delay_us(sample_delta_ms*1000.0);
 //			//LED2_NEG;
@@ -150,7 +151,8 @@ int main(void)
 //		}
 //		ctr_cnt+=1;
 
-mode=3;
+
+
 while (mode==0)//停止状态，
 {
 	speed_position_measure();
@@ -161,6 +163,9 @@ while (mode==0)//停止状态，
 	
 	delay_us(sample_delta_ms*1000.0f);			
 	
+	hardware_id_send();
+		delay_us(sample_delta_ms*1000.0f);	
+		
 }
 
 if (mode==1)//位置控制
@@ -213,17 +218,72 @@ delay_us(1000.0f*time_speed_PID_delta_ms);
 
 if (mode==3)
 {
-		Current_DAC_Out(PID_control_current(PID_control_speed(PID_control_position(0.0))));
-	speed_position_measure();
-	Data_send();
-delay_us(1000.0f*time_speed_PID_delta_ms);
+	
+//	for(i=0;i<200;i++)
+//	{
+//		hardware_id_send();
+//		delay_ms(5);
+//		Data_send();
+//	delay_ms(5);
+//	}
+//	
+//	for(i=0;i<(200000000.0f/time_speed_PID_delta_ms);i++)
+//	{
+//	Current_DAC_Out((PID_control_speed(PID_control_position(4.0*sin(2*PI*i*(1000.0f*time_speed_PID_delta_ms))))));
+//	speed_position_measure();
+//	Data_send();
+//delay_us(1000.0f*time_speed_PID_delta_ms);
+//	}
+		
 }
 if (mode==4)
 {
-	Current_DAC_Out(PID_control_current(PID_control_speed(0.75)));
+	for(i=0;i<200;i++)
+	{
+		hardware_id_send();
+		delay_ms(5);
+		Data_send();
+	delay_ms(5);
+	}
+	
+		for(j=0;j<(5);j++)
+	{
+	for(i=0;i<(1000.0f/time_speed_PID_delta_ms);i++)
+	{
+	Current_DAC_Out((PID_control_speed(-4.0f+(i*(8.0f/1000.0f*time_speed_PID_delta_ms)))));
 	speed_position_measure();
 	Data_send();
 delay_us(1000.0f*time_speed_PID_delta_ms);
+	}
+	}
+	
+	for(i=0;i<(10000.0f/time_speed_PID_delta_ms);i++)
+	{
+	Current_DAC_Out((PID_control_speed((5.0*sin(2*PI*i*(time_speed_PID_delta_ms/1000.0f))))));
+	speed_position_measure();
+	Data_send();
+delay_us(1000.0f*time_speed_PID_delta_ms);
+	}
+	for(j=0;j<5;j++)
+	{
+	for(i=0;i<(1000.0f/time_speed_PID_delta_ms);i++)
+	{
+	Current_DAC_Out((PID_control_speed((4.0f+2.0f*j+0*sin(2*PI*i*(1000.0f*time_speed_PID_delta_ms))))));
+	speed_position_measure();
+	Data_send();
+delay_us(1000.0f*time_speed_PID_delta_ms);
+	}
+	for(i=0;i<(1000.0f/time_speed_PID_delta_ms);i++)
+	{
+	Current_DAC_Out((PID_control_speed((-4.0f-2.0f*j+0*sin(2*PI*i*(1000.0f*time_speed_PID_delta_ms))))));
+	speed_position_measure();
+	Data_send();
+delay_us(1000.0f*time_speed_PID_delta_ms);
+	}
+
+	
+}
+	mode=0;
 }
 if (mode==5)
 {

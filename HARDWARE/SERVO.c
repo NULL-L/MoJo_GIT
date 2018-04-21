@@ -201,8 +201,8 @@ float position_bias[12]={0,0,0,0,0,0,0,0,0,0,0,0};
  int i_enc_cnt;
  float pos_count_last[24]={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
  float pos_before[24]={0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
-extern float encoder_overflow_count;
- const int ENC_CNT_MAX=0xFFFF;
+extern double encoder_overflow_count;
+ 
  float delta_pos=0;
  
  float original_absolute_position=0.0;
@@ -230,7 +230,7 @@ extern float encoder_overflow_count;
  	
 
 	//delta_measure_time_before[0]=(cnt6_max*cnt6_overflow+TIM6->CNT+1.0f)*2.0f/1000000.0f;
- 	pos_count_last[0]=(encoder_overflow_count*ENC_CNT_MAX+(TIM5->CNT));
+ 	pos_count_last[0]=(encoder_overflow_count*(double)ENC_CNT_MAX+(TIM5->CNT));
  	
 	//pos_count_smooth_last[0]=(pos_count_last[0]*16.0+pos_count_last[1]*8.0+pos_count_last[2]*4.0+pos_count_last[3]*2.0+pos_count_last[4]*1.0)/31.0;
  	

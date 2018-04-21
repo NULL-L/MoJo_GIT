@@ -62,6 +62,9 @@ extern float position_raw;
 extern struct object_dictionary OD;
 extern	u8  mode;
 
+extern double encoder_overflow_count;
+
+
 unsigned char CAN1_data[8];
 unsigned char can1_rec_flag = 0;
 unsigned char CAN2_data[8];
@@ -84,9 +87,9 @@ const unsigned int CAN_baud_table[CAN_BAUD_NUM][5] =
 	{200, CAN_SJW_1tq,CAN_BS1_6tq, CAN_BS2_8tq,14},			//200K  ok
 	{250, CAN_SJW_1tq,CAN_BS1_15tq,CAN_BS2_5tq,8},		    //250k  ok
 	{400, CAN_SJW_1tq,CAN_BS1_15tq, CAN_BS2_5tq,5},			//400K  ok
-	//{500, CAN_SJW_1tq,CAN_BS1_15tq,CAN_BS2_5tq,4},			//500K	ok
+	{500, CAN_SJW_1tq,CAN_BS1_15tq,CAN_BS2_5tq,4},			//500K	ok
 	//{500, CAN_SJW_1tq,CAN_BS1_9tq,CAN_BS2_8tq,4},			//500K	ok
-	{500, CAN_SJW_1tq,CAN_BS2_6tq,CAN_BS1_7tq,6},			//500K	ok
+	//{500, CAN_SJW_1tq,CAN_BS2_6tq,CAN_BS1_7tq,6},			//500K	ok
 	{666, CAN_SJW_1tq,CAN_BS1_5tq, CAN_BS2_2tq,8},			//未通
 	{800, CAN_SJW_1tq,CAN_BS1_8tq, CAN_BS2_3tq,14},			//800K 未通
 	{1000,CAN_SJW_1tq,CAN_BS1_15tq,CAN_BS2_5tq,2},			//1000K	ok
@@ -107,22 +110,22 @@ void CAN1_Configuration(void)
 	
 	
 	/* Enable GPIO clock */
-	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOD, ENABLE);
+	RCC_AHB1PeriphClockCmd(RCC_AHB1Periph_GPIOA, ENABLE);
 
 	/* Configure CAN RX and TX pins */
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_0 ;
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_11 ;
 	GPIO_InitStructure.GPIO_Mode = GPIO_Mode_AF;
 	GPIO_InitStructure.GPIO_Speed = GPIO_Speed_50MHz;
 	GPIO_InitStructure.GPIO_OType = GPIO_OType_PP;
 	GPIO_InitStructure.GPIO_PuPd  = GPIO_PuPd_UP;
-	GPIO_Init(GPIOD, &GPIO_InitStructure);
+	GPIO_Init(GPIOA, &GPIO_InitStructure);
 
-	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1;
-	GPIO_Init(GPIOD, &GPIO_InitStructure);
+	GPIO_InitStructure.GPIO_Pin = GPIO_Pin_12;
+	GPIO_Init(GPIOA, &GPIO_InitStructure);
 
 	/* Connect CAN pins to AF9 */
-	GPIO_PinAFConfig(GPIOD, GPIO_PinSource0, GPIO_AF_CAN1);
-	GPIO_PinAFConfig(GPIOD, GPIO_PinSource1, GPIO_AF_CAN1); 
+	GPIO_PinAFConfig(GPIOA, GPIO_PinSource11, GPIO_AF_CAN1);
+	GPIO_PinAFConfig(GPIOA, GPIO_PinSource12, GPIO_AF_CAN1); 
 
 	/* CAN configuration ********************************************************/  
 	/* Enable CAN clock */
@@ -279,8 +282,9 @@ void CAN1_RX0_IRQHandler(void)
 		RxMessage.Data[i] = 0x00;//缓冲区清零
 	}
 
-	CAN_Receive(CAN1, CAN_FIFO0, &RxMessage); //接收FIFO0中的数据  
+	//CAN_Receive(CAN1, CAN_FIFO0, &RxMessage); //接收FIFO0中的数据  
 
+	hardware_id_send();
 	
 	
 if ((u8)(RxMessage.StdId >> 7) == 11)//SDO
@@ -851,26 +855,40 @@ void Data_send()
 //		position_send[0] = (u8)((0x00ff0000 & (u32)(fabs((float)position_raw)*(float)180000.0/(float)PI)) >>16);
 //	position_send[1] = (u8)((0x0000ff00 & (u32)(fabs((float)position_raw)*(float)180000.0/(float)PI)) >>8);
 //	position_send[2] = (u8)((0x000000ff & (u32)(fabs((float)position_raw)*(float)180000.0/(float)PI)));
-	
+			if (position_actual>=0)
+	{position_send_sym=0;}
+	else
+	{	position_send_sym=1;	}
 	position_send[0] = (u8)((0x00ff0000 & (u32)(fabs((float)position_actual)*(float)180000.0/(float)PI)) >>16);
 	position_send[1] = (u8)((0x0000ff00 & (u32)(fabs((float)position_actual)*(float)180000.0/(float)PI)) >>8);
 	position_send[2] = (u8)((0x000000ff & (u32)(fabs((float)position_actual)*(float)180000.0/(float)PI)));
 	
+//	if (encoder_overflow_count>=0)
+//	{position_send_sym=0;}
+//	else
+//	{	position_send_sym=1;	}
+//	position_send[0] = (u8)((0x00ff0000 & (u32)(fabs((float)encoder_overflow_count)*(float)180000.0/(float)PI)) >>16);
+//	position_send[1] = (u8)((0x0000ff00 & (u32)(fabs((float)encoder_overflow_count)*(float)180000.0/(float)PI)) >>8);
+//	position_send[2] = (u8)((0x000000ff & (u32)(fabs((float)encoder_overflow_count)*(float)180000.0/(float)PI)));
 	
 	
-	
-		if (position_actual>=0.000f)
-	{position_send_sym=0;}
-	else
-	{	position_send_sym=1;	}
+
 	
 	if (speed_actual>=0)
 		{speed_send_sym=0;}
 	else
 		{speed_send_sym=1;}
-	
+		
 	speed_send[0] = (u8)((0xff00 & (u16)(abs((int)((float)speed_actual*36000.0f/PI)))) >>8);
 	speed_send[1] = (u8)((0x00ff & (u16)(abs((int)((float)speed_actual*36000.0f/PI)))));
+		
+		
+//	if (TIM5->CNT>=0)
+//		{speed_send_sym=0;}
+//	else
+//		{speed_send_sym=1;}
+//	speed_send[0] = (u8)((0xff00 & (u16)(abs((int)((float)TIM5->CNT/20000.0f*36000.0f/PI)))) >>8);
+//	speed_send[1] = (u8)((0x00ff & (u16)(abs((int)((float)TIM5->CNT/20000.0f*36000.0f/PI)))));
 	
 	if (position_send[0]<7)
 	{
@@ -878,7 +896,7 @@ void Data_send()
 	}
 	
 		current_measure_1=(u16)abs((int)(current_actual/5.0f*65535));	
-	if (current_actual>=0.000f)
+	if (current_actual>=0)
 	{current_send_sym=0;}
 	else
 	{	current_send_sym=1;	}
