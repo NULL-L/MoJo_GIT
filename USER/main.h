@@ -31,17 +31,17 @@ DA1 PA2
 //#define PI 3.14159265359
 #define line_num 500.0f
 #define reduc_ratio 100.0f
-#define max_speed			6.28f*3.0f
+#define max_speed			6.28f
 #define max_current		5.0f
 #define frequency_ratio 2.0f
-#define speed_protect_ratio 5.0f
-#define current_protect_ratio 2.0f
-#define ENC_CNT_MAX 8
+#define speed_protect_ratio 1.0f
+#define current_protect_ratio 1.2f
+#define ENC_CNT_MAX 1
 
-#define sample_delta_ms 5.0f  //;//
-#define  time_position_PID_delta_ms	2.0f
-#define  time_speed_PID_delta_ms	2.0f
-#define  time_current_PID_delta_ms	2.0f
+#define sample_delta_ms 1.0f  //;//
+#define  time_position_PID_delta_ms	1.0f
+#define  time_speed_PID_delta_ms	1.0f
+#define  time_current_PID_delta_ms	1.0f
 
 //0.0394;
 

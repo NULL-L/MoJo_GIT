@@ -15,9 +15,9 @@ float current_Kp=0.05;
 float current_Ki=0.001;//0.0001
 float current_Kd=0.0;//.3/time_current_PID_delta_ms;//0.0005
 
-float speed_Kp=0.006;
-float speed_Ki=0.0001;//0.00001;
-float speed_Kd=0.3f/time_speed_PID_delta_ms;//0.5;
+float speed_Kp=0.006f;
+float speed_Ki=0.0001f;//0.00001;
+float speed_Kd=0.8f/time_speed_PID_delta_ms;//0.5;
 
 
 float position_Kp=0.0005;//1000;
@@ -238,51 +238,83 @@ if (mode==3)
 }
 if (mode==4)
 {
-	for(i=0;i<200;i++)
+	for(i=0;i<200;i++)//等待2s
 	{
 		hardware_id_send();
 		delay_ms(5);
 		Data_send();
 	delay_ms(5);
 	}
-	
-		for(j=0;j<(5);j++)
+	delay_ms(5);
+		for(j=0;j<5;j++)//10s方波
 	{
 	for(i=0;i<(1000.0f/time_speed_PID_delta_ms);i++)
 	{
-	Current_DAC_Out((PID_control_speed(-4.0f+(i*(8.0f/1000.0f*time_speed_PID_delta_ms)))));
+	Current_DAC_Out((PID_control_speed((1.0f+0.5f*j+0*sin(2*PI*i*(1000.0f*time_speed_PID_delta_ms))))));
 	speed_position_measure();
 	Data_send();
 delay_us(1000.0f*time_speed_PID_delta_ms);
 	}
+	for(i=0;i<(1000.0f/time_speed_PID_delta_ms);i++)
+	{
+	Current_DAC_Out((PID_control_speed((-1.0f-0.5f*j+0*sin(2*PI*i*(1000.0f*time_speed_PID_delta_ms))))));
+	speed_position_measure();
+	Data_send();
+delay_us(1000.0f*time_speed_PID_delta_ms);
 	}
+}
 	
-	for(i=0;i<(10000.0f/time_speed_PID_delta_ms);i++)
+	for(i=0;i<(5000.0f/time_speed_PID_delta_ms);i++)//5s正弦波
 	{
 	Current_DAC_Out((PID_control_speed((5.0*sin(2*PI*i*(time_speed_PID_delta_ms/1000.0f))))));
 	speed_position_measure();
 	Data_send();
 delay_us(1000.0f*time_speed_PID_delta_ms);
 	}
-	for(j=0;j<5;j++)
+	
+		for(i=0;i<(3000.0f/time_speed_PID_delta_ms);i++)//5s正弦波
 	{
-	for(i=0;i<(1000.0f/time_speed_PID_delta_ms);i++)
-	{
-	Current_DAC_Out((PID_control_speed((4.0f+2.0f*j+0*sin(2*PI*i*(1000.0f*time_speed_PID_delta_ms))))));
+	Current_DAC_Out((PID_control_speed(fabs(5.0*sin(2*PI*i*(time_speed_PID_delta_ms/1000.0f))))));
 	speed_position_measure();
 	Data_send();
 delay_us(1000.0f*time_speed_PID_delta_ms);
 	}
-	for(i=0;i<(1000.0f/time_speed_PID_delta_ms);i++)
+		for(i=0;i<(3000.0f/time_speed_PID_delta_ms);i++)//5s正弦波
 	{
-	Current_DAC_Out((PID_control_speed((-4.0f-2.0f*j+0*sin(2*PI*i*(1000.0f*time_speed_PID_delta_ms))))));
+	Current_DAC_Out((PID_control_speed(-fabs(5.0*sin(2*PI*i*(time_speed_PID_delta_ms/1000.0f))))));
 	speed_position_measure();
 	Data_send();
 delay_us(1000.0f*time_speed_PID_delta_ms);
 	}
+	
+	
+		for(j=0;j<(5);j++)
+	{
+	for(i=0;i<(1000.0f/time_speed_PID_delta_ms);i++)//1s锯齿波
+	{
+	Current_DAC_Out((PID_control_speed(-5.0f+(i*(10.0f/(1000.0f/time_speed_PID_delta_ms))))));
+	speed_position_measure();
+	Data_send();
+delay_us(1000.0f*time_speed_PID_delta_ms);
+	}
+	}
+	
+		for(j=0;j<(5);j++)
+	{
+	for(i=0;i<(1000.0f/time_speed_PID_delta_ms);i++)//1s锯齿波
+	{
+	Current_DAC_Out((PID_control_speed(5.0f-(i*(10.0f/(1000.0f/time_speed_PID_delta_ms))))));
+	speed_position_measure();
+	Data_send();
+delay_us(1000.0f*time_speed_PID_delta_ms);
+	}
+	}
+	
+
+
 
 	
-}
+
 	mode=0;
 }
 if (mode==5)
