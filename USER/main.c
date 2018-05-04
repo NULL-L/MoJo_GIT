@@ -22,7 +22,7 @@ float speed_Kd=0.8f/time_speed_PID_delta_ms;//0.5;
 
 float position_Kp=0.0005;//1000;
 float position_Ki=0.00001;
-float position_Kd=3.0f/time_speed_PID_delta_ms;//1000;
+float position_Kd=8.0f;//3.0f/time_speed_PID_delta_ms;//1000;
 
 
 float time_PID_delta_ms=	0.5;//0.0394;
@@ -219,13 +219,29 @@ delay_us(1000.0f*time_speed_PID_delta_ms);
 if (mode==3)
 {
 	
-//	for(i=0;i<200;i++)
-//	{
-//		hardware_id_send();
-//		delay_ms(5);
-//		Data_send();
-//	delay_ms(5);
-//	}
+	for(i=0;i<200;i++)
+	{
+		hardware_id_send();
+		delay_ms(5);
+		Data_send();
+	delay_ms(5);
+	}
+		for(i=0;i<(5000.0f/time_speed_PID_delta_ms);i++)//5s正弦波
+	{
+	Current_DAC_Out((PID_control_speed(PID_control_position(2.0*sin(2*PI*i*(time_speed_PID_delta_ms/1000.0f))))));
+	speed_position_measure();
+	Data_send();
+delay_us(1000.0f*time_speed_PID_delta_ms);
+	}
+	
+	for(i=0;i<(200000000.0f/time_speed_PID_delta_ms);i++)
+	{
+	Current_DAC_Out((PID_control_speed(PID_control_position(3.0f))));
+	speed_position_measure();
+	Data_send();
+delay_us(1000.0f*time_speed_PID_delta_ms);
+	}
+	
 //	
 //	for(i=0;i<(200000000.0f/time_speed_PID_delta_ms);i++)
 //	{
@@ -310,11 +326,6 @@ delay_us(1000.0f*time_speed_PID_delta_ms);
 	}
 	}
 	
-
-
-
-	
-
 	mode=0;
 }
 if (mode==5)
