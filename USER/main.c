@@ -123,7 +123,7 @@ int main(void)
 	hardware_id_send();
 	SERVO_Configuration();
 	
-	mode=4;
+	mode=0;
 	while(1)
 	{
 		hardware_id_send();
